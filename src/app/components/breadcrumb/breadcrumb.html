@@ -1,0 +1,17 @@
+<nav>
+    <ul class="breadcrumb font-normal text-sm text-black opacity-50">
+        @for (item of items; let last = $last; track item.label) {
+            <li class="inline">
+                @if (item.url && !last) {
+                    <a [routerLink]="item.url" class="!text-black !hover:underline">{{ item.label }}</a>
+                }
+                @if (!item.url || last) {
+                    <span>{{ item.label }}</span>
+                }
+                @if (!last) {
+                    <span> / </span>
+                }
+            </li>
+        }
+    </ul>
+</nav>

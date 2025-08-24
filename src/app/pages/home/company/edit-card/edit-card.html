@@ -1,0 +1,60 @@
+<div class="p-4 mb-4 w-full">
+    <div class="bg-white p-4">
+        <form [formGroup]="form" nz-form (ngSubmit)="onSubmit()">
+            <h2>Pagamento recorrente</h2>
+            <nz-divider nzSize="small"></nz-divider>
+            <div class="w-1/2">
+                <nz-form-item>
+                    <nz-form-label nzSpan="cardNumber" nzRequired>Número do cartão</nz-form-label>
+                    <nz-form-control nzSpan="cardNumber" nzErrorTip="Por favor insira o número do cartão!">
+                        <input nz-input formControlName="cardNumber" placeholder="Número do cartão" mask="0000 0000 0000 0000">
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div class="w-1/2">
+                <nz-form-item>
+                    <nz-form-label nzSpan="name" nzRequired>Nome (igual ao do cartão)</nz-form-label>
+                    <nz-form-control nzSpan="name" nzErrorTip="Por favor insira o nome do titular!">
+                        <input nz-input formControlName="name" placeholder="Nome do titular" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div class="flex w-1/2 gap-4">
+                <div class="w-1/2">
+                    <nz-form-item>
+                        <nz-form-label nzSpan="expiryDate" nzRequired>Vencimento (mm/aa)</nz-form-label>
+                        <nz-form-control nzSpan="expiryDate" nzErrorTip="Por favor insira a data de vencimento!">
+                            <input nz-input formControlName="expiryDate" placeholder="MM/AA" maxlength="5" mask="M0/00" />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="w-1/2">
+                    <nz-form-item>
+                        <nz-form-label nzSpan="cvv" nzRequired>Código de segurança</nz-form-label>
+                        <nz-form-control nzSpan="cvv" nzErrorTip="Por favor insira o código de segurança!">
+                            <input nz-input formControlName="cvv" placeholder="CVV" maxlength="4" mask="0000"/>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+
+            <div class="flex justify-end">
+                <a [routerLink]="['/home/perfis']" class="mr-2">
+                    <button nz-button nzType="default" type="button">
+                        Voltar
+                    </button>
+                </a>
+                <button nz-button nzType="primary" type="submit" [disabled]="form.invalid">
+                    @if (saving) {
+                        <i class="ph ph-spinner animate-spin text-base align-middle"></i>
+                    }
+                    @else {
+                        Salvar
+                    }
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

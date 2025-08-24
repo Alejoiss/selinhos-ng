@@ -1,0 +1,114 @@
+<app-internal-header [config]="headerConfig"></app-internal-header>
+
+<div class="bg-white p-4 mb-4 w-full">
+    <div class="overflow-x-auto">
+        <nz-table nzShowSizeChanger [nzData]="listOfConsumers" [nzFrontPagination]="false" [nzLoading]="loading"
+            [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+            (nzQueryParams)="onQueryParamsChange($event)">
+            <thead>
+                <tr>
+                    <!-- <th class="w-12"></th> -->
+                    <th nzColumnKey="stamps" [nzSortFn]="true">Selos</th>
+                    <th nzColumnKey="cpf" nzCustomFilter>
+                        CPF
+                        <nz-filter-trigger [(nzVisible)]="cpfFilterVisible" [nzActive]="cpfFilterValue.length > 0"
+                            [nzDropdownMenu]="cpfMenu">
+                            <i class="ph ph-magnifying-glass text-base align-middle"></i>
+                        </nz-filter-trigger>
+                    </th>
+                    <th nzColumnKey="name" nzCustomFilter>
+                        Nome
+                        <nz-filter-trigger [(nzVisible)]="nameFilterVisible" [nzActive]="nameFilterValue.length > 0"
+                            [nzDropdownMenu]="nameMenu">
+                            <i class="ph ph-magnifying-glass text-base align-middle"></i>
+                        </nz-filter-trigger>
+                    </th>
+                    <th nzColumnKey="cellphone" nzCustomFilter>
+                        Telefone
+                        <nz-filter-trigger [(nzVisible)]="cellphoneFilterVisible"
+                            [nzActive]="cellphoneFilterValue.length > 0" [nzDropdownMenu]="cellphoneMenu">
+                            <i class="ph ph-magnifying-glass text-base align-middle"></i>
+                        </nz-filter-trigger>
+                    </th>
+                    <th nzColumnKey="email" nzCustomFilter>
+                        E-mail
+                        <nz-filter-trigger [(nzVisible)]="emailFilterVisible" [nzActive]="emailFilterValue.length > 0"
+                            [nzDropdownMenu]="emailMenu">
+                            <i class="ph ph-magnifying-glass text-base align-middle"></i>
+                        </nz-filter-trigger>
+                    </th>
+                    <th nzColumnKey="created_at" [nzSortFn]="true">Data cadastro</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (consumer of listOfConsumers; track consumer.id) {
+                <tr>
+                    <!-- <td>
+                            <button nz-button nzType="link" nz-dropdown [nzDropdownMenu]="menuActions" [nzTrigger]="'click'">
+                                <i class="ph ph-eye text-base align-middle"></i>
+                            </button>
+                            <nz-dropdown-menu #menuActions="nzDropdownMenu">
+                                <ul nz-menu>
+                                    <li nz-menu-item (click)="viewConsumer(consumer)">
+                                        <i class="ph ph-eye text-base align-middle"></i> Visualizar
+                                    </li>
+                                </ul>
+                            </nz-dropdown-menu>
+                        </td> -->
+                    <td>{{ consumer.stamps ?? 0 }}</td>
+                    <td>{{ consumer.cpf | cpfPrivacyMask }}</td>
+                    <td>{{ consumer.first_name }} {{ consumer.last_name }}</td>
+                    <td>{{ consumer.cellphone | cellphonePrivacyMask }}</td>
+                    <td>{{ consumer.email }}</td>
+                    <td>{{ consumer.created_at | date:'dd/MM/yyyy' }}</td>
+                </tr>
+                }
+            </tbody>
+        </nz-table>
+    </div>
+</div>
+
+<!-- Filtros avançados -->
+<nz-dropdown-menu #cpfMenu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+        <div class="search-box">
+            <input type="text" nz-input placeholder="Pesquisar CPF" [(ngModel)]="cpfFilterValue" />
+            <button nz-button nzSize="small" nzType="primary" (click)="searchCPF()"
+                class="search-button">Pesquisar</button>
+            <button nz-button nzSize="small" (click)="resetCPF()">Limpar</button>
+        </div>
+    </div>
+</nz-dropdown-menu>
+
+<nz-dropdown-menu #nameMenu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+        <div class="search-box">
+            <input type="text" nz-input placeholder="Pesquisar nome" [(ngModel)]="nameFilterValue" />
+            <button nz-button nzSize="small" nzType="primary" (click)="searchName()"
+                class="search-button">Pesquisar</button>
+            <button nz-button nzSize="small" (click)="resetName()">Limpar</button>
+        </div>
+    </div>
+</nz-dropdown-menu>
+
+<nz-dropdown-menu #cellphoneMenu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+        <div class="search-box">
+            <input type="text" nz-input placeholder="Pesquisar telefone" [(ngModel)]="cellphoneFilterValue" />
+            <button nz-button nzSize="small" nzType="primary" (click)="searchCellphone()"
+                class="search-button">Pesquisar</button>
+            <button nz-button nzSize="small" (click)="resetCellphone()">Limpar</button>
+        </div>
+    </div>
+</nz-dropdown-menu>
+
+<nz-dropdown-menu #emailMenu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+        <div class="search-box">
+            <input type="text" nz-input placeholder="Pesquisar e-mail" [(ngModel)]="emailFilterValue" />
+            <button nz-button nzSize="small" nzType="primary" (click)="searchEmail()"
+                class="search-button">Pesquisar</button>
+            <button nz-button nzSize="small" (click)="resetEmail()">Limpar</button>
+        </div>
+    </div>
+</nz-dropdown-menu>

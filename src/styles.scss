@@ -1,0 +1,71 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url("https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,100..900;1,100..900&display=swap");
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    font-family: "Asap", sans-serif !important;
+}
+
+nz-form-item {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: start !important;
+
+    nz-form-label {
+        width: 100% !important;
+        text-align: left !important;
+    }
+
+    nz-form-control {
+        width: 100% !important;
+        flex: none !important;
+
+        nz-input-group {
+            align-items: center !important;
+        }
+    }
+}
+
+.search-box {
+    padding: 8px;
+}
+
+.search-box input {
+    width: 188px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.search-box button {
+    width: 90px;
+}
+
+.search-button {
+    margin-right: 8px;
+}
+
+nz-select {
+    width: 240px;
+}
+nz-divider {
+    margin: 4px 0;
+}
+.container {
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 8px;
+}
+.add-item {
+    flex: 0 0 auto;
+    padding: 8px;
+    display: block;
+}
+
+.ant-btn-link:has(.ph) {
+    color: black !important;
+}

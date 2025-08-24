@@ -1,0 +1,85 @@
+<app-internal-header [config]="headerConfig"></app-internal-header>
+
+<div class="bg-white p-4 mb-4 w-full">
+    <div class="flex justify-end">
+        <a [routerLink]="['add']">
+            <button nz-button nzType="primary" type="button" [disabled]="limitReached">Adicionar nova campanha</button>
+        </a>
+    </div>
+    <div class="overflow-x-auto">
+    <nz-table nzShowSizeChanger [nzData]="listOfCampaigns" [nzFrontPagination]="false" [nzLoading]="loading"
+        [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+        (nzQueryParams)="onQueryParamsChange($event)">
+        <thead>
+            <tr>
+                <th class="w-12"></th>
+                <th nzColumnKey="active" [nzSortFn]="true" [nzFilters]="filterStatus" [nzFilterFn]="true">Campanha ativa</th>
+                <th nzColumnKey="is_main_campaign">Campanha principal</th>
+                <th nzColumnKey="name" [nzSortFn]="true" nzCustomFilter>
+                    Nome
+                    <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+                        <i class="ph ph-magnifying-glass text-base align-middle"></i>
+                    </nz-filter-trigger>
+                </th>
+                <th nzColumnKey="price_by_stamp" [nzSortFn]="true">Preço por selo</th>
+                <th nzColumnKey="quantity_stamps" [nzSortFn]="true">Quantidade de selos</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (data of listOfCampaigns; track data) {
+                <tr>
+                    <td>
+                        <button nz-button nzType="link" nz-dropdown [nzDropdownMenu]="menuCampaigns" [nzTrigger]="'click'">
+                            <i class="ph ph-dots-three-outline-vertical text-base align-middle"></i>
+                        </button>
+                        <nz-dropdown-menu #menuCampaigns="nzDropdownMenu">
+                            <ul nz-menu>
+                                <li nz-menu-item (click)="editCampaign(data)">
+                                    <i class="ph ph-pencil-simple text-base align-middle"></i> Editar
+                                </li>
+                            </ul>
+                        </nz-dropdown-menu>
+                    </td>
+                    <td>
+                        @if (data.active) {
+                            <nz-tag nzColor="green">Ativa</nz-tag>
+                        } @else {
+                            <nz-tag nzColor="red">Inativa</nz-tag>
+                        }
+                    </td>
+                    <td>
+                        @if (data.is_main_campaign) {
+                            <nz-tag nzColor="green">Sim</nz-tag>
+                        } @else {
+                            <nz-tag nzColor="red">Não</nz-tag>
+                        }
+                    </td>
+                    <td>{{ data.name }}</td>
+                    <td>{{ data.price_by_stamp | currency:'BRL' }}</td>
+                    <td>{{ data.quantity_stamps }}</td>
+                </tr>
+            }
+        </tbody>
+    </nz-table>
+    </div>
+</div>
+
+@if (limitLimit !== null) {
+    <div class="px-4 relative bottom-[60px]">
+        <div class="flex items-center">
+            <div class="flex-1">
+                <nz-tag [nzColor]="limitReached ? 'red' : 'green'">{{ limitUsed }}/{{ limitLimit }}</nz-tag>
+            </div>
+        </div>
+    </div>
+}
+
+<nz-dropdown-menu #menu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+        <div class="search-box">
+            <input type="text" nz-input placeholder="Pesquisar nome" [(ngModel)]="searchValue" />
+            <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Pesquisar</button>
+            <button nz-button nzSize="small" (click)="reset()">Limpar</button>
+        </div>
+    </div>
+</nz-dropdown-menu>
