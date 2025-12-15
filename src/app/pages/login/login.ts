@@ -5,10 +5,11 @@ import { Router, RouterModule } from '@angular/router';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { NgxMaskDirective } from 'ngx-mask';
 
 import { LoginTemplate } from '../../components/login-template/login-template';
 import { LoginService } from '../../services/login/login.service';
-import { UserService } from '../../services/user/user.service';
+import { CustomValidators } from '../../utils/validators';
 
 @Component({
     selector: 'app-login',
@@ -19,7 +20,8 @@ import { UserService } from '../../services/user/user.service';
         NzFormModule,
         NzInputModule,
         NzButtonModule,
-        LoginTemplate
+        LoginTemplate,
+        NgxMaskDirective
     ],
     templateUrl: './login.html',
     styleUrls: ['./login.scss']
@@ -33,11 +35,10 @@ export class Login implements OnInit{
     constructor(
         private fb: FormBuilder,
         private loginService: LoginService,
-        private router: Router,
-        private userService: UserService
+        private router: Router
     ) {
         this.loginForm = this.fb.group({
-            email: ['', [Validators.required, Validators.email]],
+            cpf: ['', [Validators.required, CustomValidators.cpfValidator()]],
             password: ['', [Validators.required]]
         });
 
@@ -50,7 +51,7 @@ export class Login implements OnInit{
     }
 
     onFormChanges(): void {
-        this.loginForm.controls['email'].valueChanges.subscribe(val => {
+        this.loginForm.controls['cpf'].valueChanges.subscribe(val => {
             this.loginService.loginUsuario = val;
         });
     }
@@ -59,10 +60,11 @@ export class Login implements OnInit{
         if (this.loginForm.valid) {
             this.logando = true;
             this.loginError = false;
-            this.loginService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe({
+            const cpf = this.loginForm.value.cpf?.toString().trim();
+            this.loginService.login(cpf, this.loginForm.value.password).subscribe({
                 next: (response) => {
                     this.loginService.guardarSessao(response);
-                    this.verifyUserCompanies();
+                    this.router.navigate(['/home']);
                 },
                 error: (error) => {
                     this.logando = false;
@@ -77,20 +79,5 @@ export class Login implements OnInit{
                 }
             });
         }
-    }
-
-    verifyUserCompanies() {
-        this.userService.getLoggedUser()
-            .subscribe({
-                next: (user) => {
-                    const companyId = window.localStorage.getItem('company');
-                    this.userService.userCompany = user.user_usercompanies?.find(uc => uc.company.id === companyId) || null;
-                    this.router.navigate(['/home']);
-                },
-                error: () => {
-                    window.localStorage.removeItem('company');
-                    this.router.navigate(['/home']);
-                }
-            });
     }
 }

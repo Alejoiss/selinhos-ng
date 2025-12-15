@@ -1,8 +1,8 @@
 <div class="min-h-screen bg-gray-100">
-    @if (user$ | async; as user) {
+    @if (consumer$ | async; as user) {
         @if (company) {
             <div class="fixed top-0 left-0 w-full z-10">
-                <app-header [user]="user"></app-header>
+                <app-header [consumer]="user"></app-header>
             </div>
 
             <div class="flex pt-12">
@@ -16,23 +16,3 @@
         }
     }
 </div>
-
-
-<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent">
-    <ng-template #modalTitle>Selecione sua empresa</ng-template>
-
-    <ng-template #modalContent>
-        @if (user$ | async; as user) {
-            <p>Olá, {{ user.first_name }}. Você possui uma ou mais empresas associadas à sua conta.</p>
-            <p>Por favor, selecione a empresa com a qual deseja trabalhar nesta sessão:</p>
-
-            @for (userCompany of user.user_usercompanies; track userCompany.id) {
-                <div class="mb-2">
-                    <button nz-button nzType="primary" class="w-full" (click)="selectCompany(userCompany)">
-                        {{ userCompany.company.name }}
-                    </button>
-                </div>
-            }
-        }
-    </ng-template>
-</nz-modal>

@@ -7,10 +7,8 @@ import { Observable } from 'rxjs';
 
 import { AsideMenu } from '../../components/aside-menu/aside-menu';
 import { Header } from '../../components/header/header';
-import { UserCompany } from '../../models/user-company/user-company';
-import { User } from '../../models/user/user';
-import { CompanyService } from '../../services/company/company.service';
-import { UserService } from '../../services/user/user.service';
+import { Consumer } from '../../models/consumer/consumer';
+import { ConsumerService } from '../../services/consumer/consumer.service';
 
 @Component({
     selector: 'app-home',
@@ -26,44 +24,21 @@ import { UserService } from '../../services/user/user.service';
     styleUrl: './home.scss'
 })
 export class Home implements OnInit {
-    user$!: Observable<User>;
+    consumer$!: Observable<Consumer>;
     company: string | null = null;
     isVisible = false;
 
     constructor(
-        private userService: UserService,
-        private companyService: CompanyService
+        private consumerService: ConsumerService
     ) { }
 
     ngOnInit() {
-        this.user$ = this.userService.getLoggedUser();
-        this.company = this.companyService.getStoredCompany();
+        this.consumer$ = this.consumerService.getLoggedUser();
 
-        this.checkCompany();
-    }
-
-    checkCompany() {
-        this.user$.subscribe(user => {
-            if (!this.company) {
-                if (user.user_usercompanies && user.user_usercompanies.length === 1) {
-                    const companyId = user.user_usercompanies[0]?.company.id;
-                    this.companyService.setStoredCompany(companyId);
-                    this.userService.userCompany = user.user_usercompanies[0];
-                    this.isVisible = false;
-                    this.company = companyId;
-                } else {
-                    this.isVisible = true;
-                }
-            } else {
-                this.userService.userCompany = user.user_usercompanies?.find(uc => uc.company.id === this.company!) || null;
-            }
+        navigator.geolocation.getCurrentPosition((position) => {
+            console.log(position);
+        }, (error) => {
+            console.log(error);
         });
-    }
-
-    selectCompany(userCompany: UserCompany) {
-        this.companyService.setStoredCompany(userCompany.company.id);
-        this.userService.userCompany = userCompany;
-        this.isVisible = false;
-        this.company = userCompany.company.id;
     }
 }

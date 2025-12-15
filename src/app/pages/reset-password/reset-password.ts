@@ -7,8 +7,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 
 import { LoginTemplate } from '../../components/login-template/login-template';
-import { LoginService } from '../../services/login/login.service';
-import { UserService } from '../../services/user/user.service';
+import { ConsumerService } from '../../services/consumer/consumer.service';
 
 @Component({
     selector: 'app-reset-password',
@@ -36,8 +35,7 @@ export class ResetPassword {
 
     constructor(
         private fb: FormBuilder,
-        private loginService: LoginService,
-        private usuarioService: UserService,
+        private consumerService: ConsumerService,
         private route: ActivatedRoute,
         private router: Router
     ) {
@@ -58,7 +56,7 @@ export class ResetPassword {
     }
 
     validateToken(): void {
-        this.usuarioService.validateToken(this.token)
+        this.consumerService.validateToken(this.token)
             .subscribe({
                 next: () => {
                     this.tokenValid = true;
@@ -78,11 +76,11 @@ export class ResetPassword {
     onSubmit(): void {
         if (this.recoverForm.valid && this.passwordsEquals) {
             this.recovering = true;
-            this.usuarioService.changeUserPassword(this.token, this.recoverForm.value.newPassword).subscribe({
-                next: (response) => {
+            this.consumerService.changeConsumerPassword(this.token, this.recoverForm.value.newPassword).subscribe({
+                next: () => {
                     this.router.navigateByUrl('/login');
                 },
-                error: (error) => {
+                error: () => {
                     this.recovering = false;
                 }
             });
@@ -90,9 +88,9 @@ export class ResetPassword {
     }
 
     createChangePasswordRequest(cpf: string) {
-        this.usuarioService.createChangePasswordRequest(cpf)
+        this.consumerService.createChangeConsumerPasswordRequest(cpf)
             .subscribe({
-                next: (response) => {
+                next: () => {
                     this.step = 2;
                     this.recovering = false;
                 },

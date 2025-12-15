@@ -30,7 +30,7 @@
         "@angular/router": "^20.2.3",
         "@tailwindcss/postcss": "^4.1.12",
         "ng-qrcode": "^20.0.1",
-        "ng-zorro-antd": "^20.2.1",
+        "ng-zorro-antd": "^20.2.3",
         "ng2-currency-mask": "^13.0.3",
         "ngx-mask": "^20.0.3",
         "rxjs": "~7.8.0",

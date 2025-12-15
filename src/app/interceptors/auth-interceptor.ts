@@ -16,18 +16,11 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     // Recuperar token
     const token = getTokenFromStorage();
 
-    // Preparar requisição com ou sem token
-    // Recuperar companyId do localStorage, se existir
-    const companyId = window.localStorage.getItem('company');
-
     // Montar headers adicionais
     let headers: { [key: string]: string } = {};
 
     if (token && !(req.params instanceof NoAuthorizationHttpParams)) {
         headers['Authorization'] = `Bearer ${token}`;
-    }
-    if (companyId && !(req.params instanceof NoAuthorizationHttpParams)) {
-        headers['X-company'] = companyId;
     }
 
     const authReq = Object.keys(headers).length > 0
@@ -61,7 +54,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
 function getTokenFromStorage(): string | null {
     try {
-        const userData = localStorage.getItem('user');
+        const userData = localStorage.getItem('consumer');
         if (!userData) return null;
 
         const userObject = JSON.parse(userData);
@@ -73,7 +66,7 @@ function getTokenFromStorage(): string | null {
 
 function limparDadosUsuario(): void {
     try {
-        localStorage.removeItem('user');
+        localStorage.removeItem('consumer');
     } catch (erro) {
         console.error('Erro ao limpar dados do usuário:', erro);
     }

@@ -2,8 +2,8 @@ import { Component, HostListener } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 
+import { ConsumerService } from '../../services/consumer/consumer.service';
 import { LayoutService } from '../../services/layout.service';
-import { UserService } from '../../services/user/user.service';
 
 
 @Component({
@@ -24,7 +24,7 @@ export class AsideMenu {
     selectedUrl = '';
 
     constructor(
-        public userService: UserService,
+        public consumerService: ConsumerService,
         public layoutService: LayoutService,
         private router: Router
     ) {

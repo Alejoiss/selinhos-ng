@@ -11,18 +11,19 @@ export class LoginService {
     constructor(private http: HttpClient) { }
     loginUsuario = '';
 
-    login(email: string, password: string) {
+    login(emailOrCpf: string, password: string) {
+        // The backend expects cpf instead of email for login
         return this.http.post<Token>(`${environment.apiUrl}api/token/`, {
-            email: email,
+            cpf: emailOrCpf,
             password: password
         });
     }
 
     guardarSessao(auth: Token): void {
-        window.localStorage.setItem('user', JSON.stringify(auth));
+        window.localStorage.setItem('consumer', JSON.stringify(auth));
     }
 
     removerSessao(): void {
-        window.localStorage.removeItem('user');
+        window.localStorage.removeItem('consumer');
     }
 }

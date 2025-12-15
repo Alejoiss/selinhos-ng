@@ -9,7 +9,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 import { InternalHeader } from '../../../components/internal-header/internal-header';
 import { userChangePasswordHeaderConfig } from '../../../components/internal-header/internal-header-configs';
-import { UserService } from '../../../services/user/user.service';
+import { ConsumerService } from '../../../services/consumer/consumer.service';
 
 @Component({
     selector: 'app-user-change-password',
@@ -33,7 +33,7 @@ export class UserChangePassword implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        private userService: UserService,
+        private consumerService: ConsumerService,
         private notification: NzNotificationService
     ) {}
 
@@ -45,7 +45,7 @@ export class UserChangePassword implements OnInit {
             confirm_new_password: ['', Validators.required]
         }, { validators: this.passwordsMatchValidator });
 
-        this.userService.getLoggedUser().subscribe({
+        this.consumerService.getLoggedUser().subscribe({
             next: (user) => {
                 if (user && user.id) {
                     this.form.patchValue({ id: user.id });
@@ -68,7 +68,7 @@ export class UserChangePassword implements OnInit {
         this.saving = true;
 
         const payload = this.form.getRawValue();
-        this.userService.changeUserPasswordByUser(payload).subscribe({
+        this.consumerService.changeConsumerPasswordByUser(payload).subscribe({
             next: () => {
                 this.saving = false;
                 this.notification.success('Sucesso', 'Senha alterada com sucesso.');

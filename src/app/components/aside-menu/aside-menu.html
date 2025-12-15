@@ -16,59 +16,5 @@
                 <span class="font-medium">Início</span>
             </a>
         </li>
-        @if (userService.userCompany?.profile?.can_access_companies_menu) {
-            <li nz-menu-item class="group" [class.ant-menu-item-selected]="selectedUrl.startsWith('/home/empresa')">
-                <a routerLink="/home/empresa" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-purple-50 transition group">
-                    <i class="ph ph-buildings text-2xl align-middle group-hover:text-purple-600 transition"></i>
-                    <span class="font-medium">Empresa</span>
-                </a>
-            </li>
-        }
-
-        @if (userService.userCompany?.profile?.can_access_users_menu) {
-            <li nz-menu-item [class.disabled-menu]="userService.isCompanyCnpjEmpty" [nzDisabled]="userService.isCompanyCnpjEmpty" class="group" [class.ant-menu-item-selected]="selectedUrl.startsWith('/home/usuarios')">
-                <a [routerLink]="userService.isCompanyCnpjEmpty ? null : '/home/usuarios'" tabindex="-1" [class.pointer-events-none]="userService.isCompanyCnpjEmpty"
-                   class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-purple-50 transition group">
-                    <i class="ph ph-users text-2xl align-middle group-hover:text-purple-600 transition"></i>
-                    <span class="font-medium">Usuários do sistema</span>
-                </a>
-            </li>
-        }
-        @if (userService.userCompany?.profile?.can_access_campaign_menu) {
-            <li nz-menu-item [class.disabled-menu]="userService.isCompanyCnpjEmpty" [nzDisabled]="userService.isCompanyCnpjEmpty" class="group" [class.ant-menu-item-selected]="selectedUrl.startsWith('/home/campanhas')">
-                <a [routerLink]="userService.isCompanyCnpjEmpty ? null : '/home/campanhas'" tabindex="-1" [class.pointer-events-none]="userService.isCompanyCnpjEmpty"
-                   class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-purple-50 transition group">
-                    <i class="ph ph-table text-2xl align-middle group-hover:text-purple-600 transition"></i>
-                    <span class="font-medium">Campanha</span>
-                </a>
-            </li>
-        }
-        @if (userService.userCompany?.profile?.can_access_customers_menu) {
-            <li nz-menu-item [class.disabled-menu]="userService.isCompanyCnpjEmpty" [nzDisabled]="userService.isCompanyCnpjEmpty" class="group" [class.ant-menu-item-selected]="selectedUrl.startsWith('/home/clients')">
-                <a [routerLink]="userService.isCompanyCnpjEmpty ? null : '/home/clients'" tabindex="-1" [class.pointer-events-none]="userService.isCompanyCnpjEmpty"
-                   class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-purple-50 transition group">
-                    <i class="ph ph-address-book text-2xl align-middle group-hover:text-purple-600 transition"></i>
-                    <span class="font-medium">Clientes</span>
-                </a>
-            </li>
-        }
-        @if (userService.userCompany?.profile?.can_access_profile_menu) {
-            <li nz-menu-item [class.disabled-menu]="userService.isCompanyCnpjEmpty" [nzDisabled]="userService.isCompanyCnpjEmpty" class="group" [class.ant-menu-item-selected]="selectedUrl.startsWith('/home/perfis')">
-                <a [routerLink]="userService.isCompanyCnpjEmpty ? null : '/home/perfis'" tabindex="-1" [class.pointer-events-none]="userService.isCompanyCnpjEmpty"
-                   class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-purple-50 transition group">
-                    <i class="ph ph-user-gear text-2xl align-middle group-hover:text-purple-600 transition"></i>
-                    <span class="font-medium">Perfis</span>
-                </a>
-            </li>
-        }
-        @if (userService.userCompany?.profile?.can_register_stamps) {
-            <li nz-menu-item [class.disabled-menu]="userService.isCompanyCnpjEmpty" [nzDisabled]="userService.isCompanyCnpjEmpty" class="group" [class.ant-menu-item-selected]="selectedUrl.startsWith('/home/lancar-selo')">
-                <a [routerLink]="userService.isCompanyCnpjEmpty ? null : '/home/lancar-selo'" tabindex="-1" [class.pointer-events-none]="userService.isCompanyCnpjEmpty"
-                   class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-purple-50 transition group">
-                    <i class="ph ph-stamp text-2xl align-middle group-hover:text-purple-600 transition"></i>
-                    <span class="font-medium">Lançar selo</span>
-                </a>
-            </li>
-        }
     </ul>
 </aside>

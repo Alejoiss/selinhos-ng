@@ -1,6 +1,5 @@
-<header
+<!-- <header
     class="w-full bg-gradient-to-br from-[#1a2240] via-[#001529] to-[#2d1a40] shadow flex items-center px-4 py-2 relative z-10">
-    <!-- Botão menu mobile -->
     <button
         class="block md:hidden w-8 h-8 flex items-center justify-center mr-3 bg-white/10 hover:bg-white/20 transition p-0"
         (click)="layoutService.toggleMobileMenu()">
@@ -14,15 +13,15 @@
     </button>
     <img src="/assets/logo.png" alt="">
     <span class="text-xl md:text-2xl font-bold tracking-tight text-white drop-shadow">Selo Clube</span>
-    @if (user) {
+    @if (consumer) {
         <div class="ml-auto flex items-center gap-2">
             <div class="relative">
                 <button type="button"
                     class="flex items-center gap-2 px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 transition cursor-pointer select-none"
                     (click)="showDropdown = !showDropdown" (blur)="showDropdown = false" tabindex="0">
                     <i class="ph ph-user-circle text-2xl text-white/80"></i>
-                    <span class="font-medium text-white/90">{{ user.first_name }}</span>
-                    @if (user.user_usercompanies && user.user_usercompanies.length > 1) {
+                    <span class="font-medium text-white/90">{{ consumer.first_name }}</span>
+                    @if (consumer.user_usercompanies && consumer.user_usercompanies.length > 1) {
                         <span class="text-xs text-white/60">({{ company.name }})</span>
                     }
                     <i class="ph ph-caret-down ml-1 text-white/70"></i>
@@ -36,7 +35,7 @@
                                 <i class="ph ph-user text-lg text-zinc-700"></i>
                                 <span>Meu cadastro</span>
                             </li>
-                            @if (user.user_usercompanies && user.user_usercompanies.length > 1) {
+                            @if (consumer.user_usercompanies && consumer.user_usercompanies.length > 1) {
                             <li class="relative">
                                 <div class="flex items-center gap-2 px-4 py-2 hover:bg-zinc-100 cursor-pointer transition"
                                     (mouseenter)="showSubmenu = true"
@@ -51,7 +50,7 @@
                                         (mouseenter)="showSubmenu = true"
                                         (mouseleave)="showSubmenu = false">
                                         <ul class="py-2">
-                                            @for (userCompany of user.user_usercompanies; track userCompany.id) {
+                                            @for (userCompany of consumer.user_usercompanies; track userCompany.id) {
                                                 <li class="flex items-center gap-2 px-4 py-2 hover:bg-zinc-100 cursor-pointer transition" (mousedown)="changeCompany(userCompany.company); showSubmenu = false; showDropdown = false;">
                                                     <i class="ph ph-building text-lg text-zinc-700"></i>
                                                     <span>{{ userCompany.company.name }}</span>
@@ -74,4 +73,4 @@
             </div>
         </div>
     }
-</header>
+</header> -->

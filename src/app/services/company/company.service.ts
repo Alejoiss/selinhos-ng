@@ -13,16 +13,4 @@ export class CompanyService extends BaseService<Company> {
     ) {
         super(httpClient, 'registers/company');
     }
-
-    getStoredCompany(): string | null {
-        return window.localStorage.getItem('company');
-    }
-
-    setStoredCompany(companyId: string): void {
-        window.localStorage.setItem('company', companyId);
-    }
-
-    addNewCompany(payload: any) {
-        return this.httpClient.post<Company>(`${this.url}${this.endpoint}/add-new-company/`, payload);
-    }
 }

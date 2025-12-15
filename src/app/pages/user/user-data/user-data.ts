@@ -9,7 +9,7 @@ import { NgxMaskDirective } from 'ngx-mask';
 
 import { InternalHeader } from '../../../components/internal-header/internal-header';
 import { userDataHeaderConfig } from '../../../components/internal-header/internal-header-configs';
-import { UserService } from '../../../services/user/user.service';
+import { ConsumerService } from '../../../services/consumer/consumer.service';
 
 @Component({
     selector: 'app-user-data',
@@ -34,7 +34,7 @@ export class UserData implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        private userService: UserService,
+        private consumerService: ConsumerService,
         private notification: NzNotificationService
     ) {}
 
@@ -46,7 +46,7 @@ export class UserData implements OnInit {
             cellphone: ['', Validators.required]
         });
 
-        this.userService.getLoggedUser().subscribe({
+        this.consumerService.getLoggedUser().subscribe({
             next: (user) => {
                 if (user && user.id) {
                     this.form.patchValue({
@@ -69,7 +69,7 @@ export class UserData implements OnInit {
         const id = payload.id;
         // Remove id from body as update endpoint uses id in URL
         delete payload.id;
-        this.userService.update(payload as any, id).subscribe({
+        this.consumerService.update(payload as any, id).subscribe({
             next: () => {
                 this.saving = false;
                 this.notification.success('Sucesso', 'Dados atualizados com sucesso.');

@@ -4,11 +4,12 @@ import { Router, RouterModule } from '@angular/router';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
-import { provideNgxMask } from 'ngx-mask';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 import { LoginTemplate } from '../../components/login-template/login-template';
+import { ConsumerService } from '../../services/consumer/consumer.service';
 import { LoginService } from '../../services/login/login.service';
-import { UserService } from '../../services/user/user.service';
+import { CustomValidators } from '../../utils/validators';
 
 @Component({
     selector: 'app-recuperar-senha',
@@ -18,7 +19,8 @@ import { UserService } from '../../services/user/user.service';
         NzFormModule,
         NzInputModule,
         NzButtonModule,
-        LoginTemplate
+        LoginTemplate,
+        NgxMaskDirective
     ],
     providers: [provideNgxMask()],
     templateUrl: './recover-password.html',
@@ -29,29 +31,29 @@ export class RecoverPassword {
     passwordVisible: boolean = false;
     recovering = false;
     step: 1 | 2 = 1;
-    emailRecover!: string;
+    cpfRecover!: string;
     invalidCPf = false;
     errorCreateChangePasswordRequest!: boolean;
 
     constructor(
         private fb: FormBuilder,
         private loginService: LoginService,
-        private usuarioService: UserService,
+        private consumerService: ConsumerService,
         private router: Router
     ) {
         this.recoverForm = this.fb.group({
-            email: ['', [Validators.required, Validators.email]]
+            cpf: ['', [Validators.required, CustomValidators.cpfValidator()]]
         });
 
         this.onFormChanges();
     }
 
     ngOnInit(): void {
-        this.recoverForm.controls['email'].setValue(this.loginService.loginUsuario);
+        this.recoverForm.controls['cpf'].setValue(this.loginService.loginUsuario);
     }
 
     onFormChanges(): void {
-        this.recoverForm.controls['email'].valueChanges.subscribe(val => {
+        this.recoverForm.controls['cpf'].valueChanges.subscribe(val => {
             this.loginService.loginUsuario = val;
         });
     }
@@ -62,18 +64,19 @@ export class RecoverPassword {
             this.invalidCPf = false;
             this.recovering = true;
             // Aqui pode ser ajustado para buscar usuário por e-mail se necessário
-            this.createChangePasswordRequest(this.recoverForm.value.email);
+            this.createChangePasswordRequest(this.recoverForm.value.cpf);
         }
     }
 
-    createChangePasswordRequest(email: string) {
-        this.usuarioService.createChangePasswordRequest(email)
+    createChangePasswordRequest(cpf: string) {
+        this.consumerService.createChangeConsumerPasswordRequest(cpf)
             .subscribe({
-                next: (response) => {
+                next: () => {
+                    this.cpfRecover = cpf;
                     this.step = 2;
                     this.recovering = false;
                 },
-                error: (error) => {
+                error: () => {
                     this.errorCreateChangePasswordRequest = true;
                 }
             })

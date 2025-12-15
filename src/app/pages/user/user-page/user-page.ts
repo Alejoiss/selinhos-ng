@@ -4,8 +4,8 @@ import { Subject, takeUntil } from 'rxjs';
 
 import { AsideMenuUser } from '../../../components/aside-menu-user/aside-menu-user';
 import { Header } from '../../../components/header/header';
-import { User } from '../../../models/user/user';
-import { UserService } from '../../../services/user/user.service';
+import { Consumer } from '../../../models/consumer/consumer';
+import { ConsumerService } from '../../../services/consumer/consumer.service';
 
 @Component({
     selector: 'app-user-page',
@@ -19,18 +19,18 @@ import { UserService } from '../../../services/user/user.service';
     styleUrl: './user-page.scss'
 })
 export class UserPage implements OnInit, OnDestroy {
-    user!: User;
+    consumer!: Consumer;
     subscriptionBreak$ = new Subject<void>();
 
     constructor(
-        private userService: UserService,
+        private consumerService: ConsumerService,
     ) { }
 
     ngOnInit() {
-        this.userService.getLoggedUser()
+        this.consumerService.getLoggedUser()
         .pipe(takeUntil(this.subscriptionBreak$))
         .subscribe((user) => {
-            this.user = user;
+            this.consumer = user;
         });
     }
 
