@@ -22,7 +22,7 @@
 - **Máscaras de Formulário:** Utilize máscaras de entrada para campos como CPF/CNPJ, telefones e datas, garantindo a formatação correta dos dados. Quando possível, utilize bibliotecas como ngx-mask para facilitar a implementação.
 - **Validadores de Formulário:** Utilize validadores reativos do Angular para garantir a integridade dos dados nos formulários. Crie validadores personalizados quando necessário para regras específicas de negócio. Os validadores criados, devem ser armazenados um arquivo 'src/utils/validators.ts', para facilitar a manutenção e reutilização.
 - **Formatação**: Toda formatação de código deve ser feita seguindo o arquivo de configuração '.editorconfig' presente na raiz do projeto. Espaçamento padrão são de 4 espaços por nível de indentação.
-- **Condicionais e Loops em Templates:** Use o novo sistema de diretivas estruturais do Angular (control flow) para condicionais e loops, garantindo melhor performance e legibilidade.
+- **Condicionais e Loops em Templates:** Use o novo sistema de diretivas estruturais do Angular (control flow) para condicionais e loops, garantindo melhor performance e legibilidade, ou seja, NUNCA use `*ngIf` ou `*ngFor`, mas sim as diretivas `@if`, `@else if`, `@else` e `@for`.
     - Todo loop deve utilizar a diretiva `@for` com a cláusula `track` para otimizar a renderização de listas.
 - **Ícones:** Utilize a biblioteca Phosphor Icons para ícones em toda a aplicação, garantindo consistência visual.
 

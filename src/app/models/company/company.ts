@@ -11,4 +11,8 @@ export class Company {
     neighborhood!: string;
     state!: string;
     city!: string;
+    logo?: string;
+
+    // transient
+    total_stamps?: number;
 }

@@ -11,8 +11,9 @@ export const routes: Routes = [
         path: 'home',
         loadComponent: () => import('./pages/home/home').then(m => m.Home),
         canActivate: [loggedUserGuard],
-        children: []
+        children: [
 
+        ]
     },
     {
         path: 'usuario',
@@ -50,6 +51,18 @@ export const routes: Routes = [
         path: 'resetar-senha',
         loadComponent: () => import('./pages/reset-password/reset-password').then(m => m.ResetPassword),
         title: 'Selo Clube - Redefinir senha'
+    },
+    {
+        path: 'selecionar-cidade',
+        loadComponent: () => import('./pages/select-city/select-city').then(m => m.SelectCity),
+        canActivate: [loggedUserGuard],
+        title: 'Selo Clube - Selecionar cidade'
+    },
+    {
+        path: 'meus-selos/:id',
+        loadComponent: () => import('./pages/my-stamps/my-stamps').then(m => m.MyStamps),
+        canActivate: [loggedUserGuard],
+        title: 'Selo Clube - Meus Selos'
     },
     {
         path: '',

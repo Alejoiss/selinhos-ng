@@ -3,3 +3,44 @@
     height: calc(100vh - 48px);
     background: #fff;
 }
+
+/* Home page visual improvements */
+.add-stamp-button {
+    background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%);
+    border: 1px solid #e6e6e6;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(16,24,40,0.06);
+    align-items: center;
+}
+.add-stamp-button .add-stamp-icon {
+    width: 44px;
+    height: 44px;
+    background: #187a69;
+    border-radius: 8px;
+    display:flex; align-items:center; justify-content:center;
+}
+
+.company-card {
+    background: #ffffff;
+    padding: 16px;
+    border-radius: 12px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    transition: transform .18s ease, box-shadow .18s ease;
+    border: 1px solid rgba(16,24,40,0.04);
+}
+.company-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(16,24,40,0.08);
+}
+.company-logo { box-shadow: 0 4px 12px rgba(16,24,40,0.06); }
+.company-card .italic { color: #111827; font-style: italic; }
+.badge { letter-spacing: 0.2px; }
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .add-stamp-button { padding: 12px; }
+    .company-logo { width: 56px; height: 56px; }
+    .company-card { padding: 12px; }
+}

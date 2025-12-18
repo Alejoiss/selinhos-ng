@@ -13,4 +13,11 @@ export class CompanyService extends BaseService<Company> {
     ) {
         super(httpClient, 'registers/company');
     }
+
+    /**
+     * Retorna os selos do usuário para a empresa identificada por `id`.
+     */
+    getCompanyStamps(id: string) {
+        return this.httpClient.get<any>(`${this.url}${this.endpoint}/${id}/get-company-stamps/`);
+    }
 }

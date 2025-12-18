@@ -1,3 +1,5 @@
+import { City } from '../city/city';
+
 export class Consumer {
     id!: string;
     cpf!: string;
@@ -10,4 +12,5 @@ export class Consumer {
     last_name?: string;
     stamps?: number;
     handle!: string;
+    selected_city!: City;
 }

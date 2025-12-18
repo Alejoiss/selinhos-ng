@@ -68,4 +68,12 @@ export class ConsumerService extends BaseService<Consumer> {
     changeConsumerPasswordByUser(payload: { id: string; current_password: string; new_password: string }) {
         return this.httpClient.post(`${this.url}${this.endpoint}/change-consumer-password/`, payload);
     }
+
+    /**
+     * Salva a cidade selecionada pelo consumidor autenticado.
+     * Envia { city_id } e retorna 200 se ok.
+     */
+    saveSelectedCity(city_id: number) {
+        return this.httpClient.post(`${this.url}${this.endpoint}/save-selected-city/`, { city_id });
+    }
 }
