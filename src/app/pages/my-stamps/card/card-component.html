@@ -22,6 +22,24 @@
     <div class="status-message text-sm text-gray-700 mb-3">{{ statusMsg }}</div>
 
     @if (isComplete) {
-        <div class="exchange-button"><button nz-button nzType="primary">Trocar</button></div>
+        <div class="exchange-button">
+            <button nz-button nzType="primary" [disabled]="card.requested" (click)="confirmRequest()">
+                @if (card.requested && card.active) {
+                    Resgate solicitado
+                }
+                @else if (card.requested && !card.active) {
+                    Resgate concluído
+                }
+                @else {
+                    Trocar
+                }
+            </button>
+            @if (card.requested && card.active) {
+                <div class="text-xs text-gray-500 mt-2">Solicitado em: {{ card.requested_at | date:'short' }}</div>
+            }
+            @else if (card.requested && !card.active) {
+                <div class="text-xs text-gray-500 mt-2">Resgatado em: {{ card.used_at | date:'short' }}</div>
+            }
+        </div>
     }
 </div>

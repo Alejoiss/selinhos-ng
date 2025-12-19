@@ -5,11 +5,12 @@ import { Router, RouterModule } from '@angular/router';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
-import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { Observable } from 'rxjs';
 
+import { QrScannerModalComponent } from '../../components/qr-scanner/qr-scanner-modal';
 import { Company } from '../../models/company/company';
 import { Consumer } from '../../models/consumer/consumer';
 import { CompanyService } from '../../services/company/company.service';
@@ -38,11 +39,14 @@ export class Home implements OnInit {
     searchTerm = '';
     loading = false;
 
+    lastScanned: string | null = null;
+
     constructor(
         private consumerService: ConsumerService,
         private companyService: CompanyService,
         private notification: NzNotificationService,
-        private router: Router
+        private router: Router,
+        private modal: NzModalService
     ) { }
 
     ngOnInit() {
@@ -74,5 +78,29 @@ export class Home implements OnInit {
 
     openCompany(id: string): void {
         this.router.navigate(['/meus-selos', id]);
+    }
+
+    openQrScanner(): void {
+        const ref = this.modal.create({
+            nzTitle: 'Adicionar selo',
+            nzContent: QrScannerModalComponent,
+            nzFooter: null
+        });
+
+        ref.afterClose.subscribe((result) => {
+            if (result) {
+                if (typeof result === 'object' && result.redeemed && result.redeemed.length > 0) {
+                    // Refresh company counts to reflect new stamps
+                    this.fetchCompanies();
+                    this.notification.create('success', 'Selos resgatados', `${result.redeemed.length} selo(s) resgatados`);
+                } else {
+                    const token = (typeof result === 'object') ? (result.token ?? null) : result;
+                    if (token) {
+                        this.lastScanned = token;
+                        this.notification.create('success', 'QR Code lido', String(token));
+                    }
+                }
+            }
+        });
     }
 }

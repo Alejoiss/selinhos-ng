@@ -33,6 +33,7 @@
         "ng-zorro-antd": "^20.2.3",
         "ng2-currency-mask": "^13.0.3",
         "ngx-mask": "^20.0.3",
+        "ngx-scanner-qrcode": "^1.7.6",
         "rxjs": "~7.8.0",
         "tslib": "^2.3.0",
         "zone.js": "~0.15.0"

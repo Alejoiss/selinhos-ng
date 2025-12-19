@@ -26,12 +26,15 @@
 		<!-- Search -->
 		<div class="mb-4">
 			<div class="relative">
-                <button class="add-stamp-button flex items-center gap-3 px-4 py-4 mb-4 w-full text-left">
+                <button class="add-stamp-button flex items-center gap-3 px-4 py-4 mb-4 w-full text-left block" (click)="openQrScanner()">
                     <span class="add-stamp-icon">
                         <i class="ph ph-squares-four text-xl text-white"></i>
                     </span>
                     <span class="font-medium">Adicione selo</span>
                 </button>
+                @if (lastScanned) {
+                    <div class="mb-3 text-sm text-green-700">QR lido: {{ lastScanned }}</div>
+                }
 				<div class="relative">
 					<i class="ph ph-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
 					<input nz-input [(ngModel)]="searchTerm" (input)="applyFilter()" placeholder="Pesquisar estabelecimentos"

@@ -14,4 +14,8 @@ export class StampQRService extends BaseService<StampQR> {
     ) {
         super(httpClient, 'stamps/stampqr');
     }
+
+    redeemQrCode(token: string) {
+        return this.httpClient.post(`${this.url}${this.endpoint}/redeem-qrcode/`, { token });
+    }
 }
