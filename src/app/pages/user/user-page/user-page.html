@@ -1,15 +1,14 @@
 @if (consumer) {
-    <div class="min-h-screen bg-gray-100">
+    <div class="min-h-screen">
         <div class="fixed top-0 left-0 w-full z-10">
-            <app-header [consumer]="consumer"></app-header>
+            <app-header></app-header>
         </div>
 
         <div class="flex pt-12">
-            <div class="aside-menu-wrapper z-2 sticky top-12">
-                <app-aside-menu-user></app-aside-menu-user>
-            </div>
-            <div class="w-full">
-                <router-outlet></router-outlet>
+            <div class="w-full relative">
+                <div class="relative" [@fadeAnimation]="getRouteAnimationState(userOutlet)">
+                    <router-outlet #userOutlet="outlet"></router-outlet>
+                </div>
             </div>
         </div>
     </div>

@@ -30,21 +30,26 @@
 }
 
 .my-stamps-header {
+    margin-bottom: 16px;
+}
+
+.company-banner-logo {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 16px;
+    margin-top: 0.5rem;
+    z-index: 10;
 }
-.company-logo {
-    width: 48px;
-    height: 48px;
+.company-banner-logo img {
+    width: 64px;
+    height: 64px;
     border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 6px 18px rgba(16, 24, 40, 0.06);
+    box-shadow: 0 8px 22px rgba(16, 24, 40, 0.12);
 }
+
 .company-title {
-    font-weight: 600;
-    font-size: 1.125rem;
+    font-weight: 700;
+    font-size: 1.25rem;
 }
 .company-sub {
     color: #6b7280;

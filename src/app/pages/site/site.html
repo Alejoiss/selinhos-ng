@@ -1,68 +1,314 @@
-<div class="min-h-screen bg-white">
-	<header class="max-w-6xl mx-auto flex items-center justify-between p-6">
-		<div class="flex items-center gap-4">
-			<img src="https://www.figma.com/api/mcp/asset/b79f0472-e427-4ce1-8c39-586c3a59f702" alt="Selo Clube" class="w-14 h-14" />
-			<h1 class="text-2xl font-semibold text-[#273230]">Selo Clube</h1>
-		</div>
+<!-- Página inicial - Selo Clube -->
+<div class="w-full min-h-screen flex flex-col">
 
-		<div class="flex items-center gap-4">
-			<a routerLink="/login" class="text-white bg-[#187a69] px-4 py-2 rounded-md hover:opacity-90">Entrar</a>
-			<a routerLink="/registro" class="text-[#273230] bg-[#bff426] px-4 py-2 rounded-md hover:opacity-90">Criar minha conta</a>
-		</div>
-	</header>
+    <!-- Header -->
+    <header class="w-full bg-white border-b border-01">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
 
-	<main class="bg-[#187a69] text-white">
-		<div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-8 p-12 md:p-20">
-			<div class="flex-1">
-				<h2 class="text-4xl md:text-5xl font-semibold leading-tight">Sua fidelidade vale prêmios e vira coleção</h2>
-				<p class="mt-6 text-lg max-w-xl">Acumule selos digitais, <strong>troque</strong> com amigos e <strong>ganhe recompensas</strong> nos seus lugares favoritos</p>
-				<div class="mt-8">
-					<a routerLink="/registro" class="inline-block bg-[#bff426] text-[#273230] px-6 py-3 rounded-md font-medium">Criar minha conta</a>
-				</div>
-			</div>
+            <!-- Logo + Nome -->
+            <div class="flex items-center gap-2">
+                <img src="assets/images/logo.svg" alt="Logo" class="w-10 h-10">
+                <span class="text-xl font-semibold text-text-primary">Selo Clube</span>
+            </div>
 
-			<div class="flex-1 w-full">
-				<img src="https://www.figma.com/api/mcp/asset/85579464-f1c0-4e2a-9ece-0aa0e26409da" alt="Ilustração" class="w-full rounded-lg shadow-lg object-cover" />
-			</div>
-		</div>
-	</main>
+            <div class="flex gap-4">
+                <!-- Botão Entrar -->
+                <a routerLink="/login">
+                    <button class="bg-brand !text-white px-6 py-2 rounded-lg font-medium cursor-pointer">
+                        Entrar
+                    </button>
+                </a>
 
-	<!-- Features -->
-	<section class="bg-[#f9fafb]">
-		<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 p-8 md:p-16">
-			<div class="bg-[#187a69] rounded-lg p-8 text-center text-white">
-				<img src="https://www.figma.com/api/mcp/asset/d038f2c8-d0ef-47fb-a568-918456e68281" class="mx-auto mb-4 w-14 h-14" alt="Encontre"/>
-				<h3 class="font-semibold">Encontre</h3>
-				<p class="mt-2">Descubra estabelecimentos próximos</p>
-			</div>
-			<div class="bg-[#187a69] rounded-lg p-8 text-center text-white">
-				<img src="https://www.figma.com/api/mcp/asset/3918234b-a052-40f3-9628-0b905c20fc59" class="mx-auto mb-4 w-14 h-14" alt="Consuma"/>
-				<h3 class="font-semibold">Consuma</h3>
-				<p class="mt-2">Faça suas compras favoritas</p>
-			</div>
-			<div class="bg-[#187a69] rounded-lg p-8 text-center text-white">
-				<img src="https://www.figma.com/api/mcp/asset/1a1069dc-c8cc-4930-a297-db5837084058" class="mx-auto mb-4 w-14 h-14" alt="Ganhe"/>
-				<h3 class="font-semibold">Ganhe</h3>
-				<p class="mt-2">Acumule selos e prêmios</p>
-			</div>
-		</div>
-	</section>
+                <!-- Botão Criar minha conta -->
+               <a routerLink="/registro">
+                    <button class="bg-brand-variant !text-black px-6 py-2 rounded-lg font-medium cursor-pointer">
+                        Criar minha conta
+                    </button>
+               </a>
+            </div>
 
-	<!-- Stamp / CTA block -->
-	<section class="bg-[#f9fafb]">
-		<div class="max-w-6xl mx-auto p-12 md:p-20 flex flex-col md:flex-row items-center gap-8">
-			<div class="flex-1">
-				<h3 class="text-3xl font-semibold text-[#273230]">Não é só um carimbo. <span class="block font-bold">É um item de colecionador!</span></h3>
-				<p class="mt-4 text-lg text-[#ece4d0]">Em breve, você poderá trocar selos repetidos com amigos e caçar Selos Lendários que valem prêmios reais</p>
-			</div>
-			<div class="flex-1">
-				<div class="bg-white rounded-xl shadow-lg p-6 max-w-xs mx-auto">
-					<img src="https://www.figma.com/api/mcp/asset/445d94b2-c90c-4311-ae11-faa76e78c080" alt="Stamp card" class="w-full rounded-lg object-cover" />
-					<div class="mt-4 text-center">
-						<a routerLink="/registro" class="inline-block bg-black text-white px-4 py-2 rounded-md">Criar minha conta</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="w-full bg-brand text-white py-16">
+        <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+
+            <!-- Texto -->
+            <div>
+                <h1 class="text-4xl font-bold leading-tight text-beige">
+                    Sua fidelidade vale<br>
+                    prêmios e vira coleção
+                </h1>
+
+                <p class="mt-4 text-beige text-lg">
+                    Acumule selos digitais, <span class="font-semibold">troque</span> com amigos e
+                    <span class="font-semibold">ganhe recompensas</span> nos seus
+                    <span class="font-semibold">lugares favoritos</span>
+                </p>
+
+                <a routerLink="/registro">
+                    <button class="mt-8 bg-brand-variant !text-black font-medium px-6 py-3 rounded-lg cursor-pointer">
+                        Criar minha conta
+                    </button>
+                </a>
+            </div>
+
+            <!-- Imagem Hero -->
+            <div class="flex justify-center lg:justify-end">
+                <img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&w=900&q=60"
+                    alt="App demonstrado" class="rounded-xl w-full max-w-sm">
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Seção: Jogue fora os cartões -->
+    <section class="w-full py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+
+            <p class="text-text-secondary mb-6">
+                Jogue fora os cartões de papel.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+
+                <!-- Card 1 -->
+                <div class="bg-brand text-white rounded-xl p-6 flex flex-col items-center text-center gap-3 text-beige">
+                    <i class="ph ph-map-pin text-3xl"></i>
+                    <h3 class="font-semibold text-lg text-beige">Encontre</h3>
+                    <p class="text-sm opacity-90">Descubra estabelecimentos próximos</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-brand text-white rounded-xl p-6 flex flex-col items-center text-center gap-3 text-beige">
+                    <i class="ph ph-storefront text-3xl"></i>
+                    <h3 class="font-semibold text-lg text-beige">Consuma</h3>
+                    <p class="text-sm opacity-90">Faça suas compras favoritas</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-brand text-white rounded-xl p-6 flex flex-col items-center text-center gap-3 text-beige">
+                    <i class="ph ph-gift text-3xl"></i>
+                    <h3 class="font-semibold text-lg text-beige">Ganhe</h3>
+                    <p class="text-sm opacity-90">Acumule selos e prêmios</p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Seção: Cansado daquele cartão -->
+    <section class="w-full py-20 bg-bg-light">
+        <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+
+            <!-- Imagens lado a lado -->
+            <div class="flex gap-4">
+                <img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&w=700&q=60"
+                    alt="App com selos" class="w-1/2 rounded-xl object-cover">
+                <img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&w=700&q=60"
+                    alt="App com selos" class="w-1/2 rounded-xl object-cover">
+            </div>
+
+            <!-- Texto -->
+            <div>
+                <h2 class="text-2xl font-semibold text-text-primary leading-snug">
+                    Cansado de perder aquele<br>
+                    cartão que faltava só um<br>
+                    carimbo?
+                </h2>
+
+                <p class="mt-4 text-text-secondary">
+                    No Selo Clube, seus selos estão sempre com você,<br>
+                    é só informar:
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Seção: QR CODE / CPF -->
+    <section class="w-full py-16 bg-white border-t border-01">
+        <div class="max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <!-- Card QR Code -->
+            <div class="bg-color-primary text-white rounded-xl p-8 flex flex-col items-center text-center gap-4">
+                <i class="ph ph-qr-code text-[80px]"></i>
+                <h3 class="font-semibold !text-white">QR CODE</h3>
+                <p class="text-sm opacity-80">Escaneie rapidamente</p>
+            </div>
+
+            <!-- Card CPF -->
+            <div class="bg-color-primary text-white rounded-xl p-8 flex flex-col items-center text-center gap-4">
+                <i class="ph ph-identification-card text-[80px]"></i>
+                <h3 class="font-semibold !text-white">CPF</h3>
+                <p class="text-sm opacity-80">Informe seu documento</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Seção: Como funciona -->
+    <section class="w-full py-16 bg-bg-light-beige border-y border-01">
+        <div class="max-w-6xl mx-auto px-6">
+
+            <p class="text-text-primary mb-10">Como funciona:</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-10">
+
+                <!-- Item 1 -->
+                <div class="flex flex-col gap-2">
+                    <div class="flex items-center gap-3">
+                        <span
+                            class="w-8 h-8 rounded-full bg-color-primary text-white flex items-center justify-center text-sm">1</span>
+                        <h3 class="font-semibold text-text-primary">Encontre</h3>
+                    </div>
+                    <p class="text-text-secondary text-sm ml-11">Descubra parceiros incríveis perto de você!</p>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="flex flex-col gap-2">
+                    <div class="flex items-center gap-3">
+                        <span
+                            class="w-8 h-8 rounded-full bg-color-primary text-white flex items-center justify-center text-sm">2</span>
+                        <h3 class="font-semibold text-text-primary">Consuma</h3>
+                    </div>
+                    <p class="text-text-secondary text-sm ml-11">Ao pagar, peça seu selo digital!</p>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="flex flex-col gap-2">
+                    <div class="flex items-center gap-3">
+                        <span
+                            class="w-8 h-8 rounded-full bg-color-primary text-white flex items-center justify-center text-sm">3</span>
+                        <h3 class="font-semibold text-text-primary">Ganhe</h3>
+                    </div>
+                    <p class="text-text-secondary text-sm ml-11">
+                        Complete a cartela e resgate prêmios<br>
+                        ou colecione selos raros!
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Seção: Não é só um carimbo -->
+    <section class="w-full py-20 bg-white">
+        <div class="max-w-5xl mx-auto px-6 text-center">
+
+            <h2 class="text-text-primary text-xl font-semibold">
+                Não é só um carimbo.<br>
+                É um item de colecionador!
+            </h2>
+
+            <!-- Card com imagem e texto -->
+            <div class="mt-10 rounded-xl overflow-hidden relative">
+
+                <img src="https://images.unsplash.com/photo-1486401899868-0e435ed85128?auto=format&fit=crop&w=1200&q=60"
+                    alt="Pessoa usando celular" class="w-full h-56 object-cover">
+
+                <p class="absolute bottom-10 left-6 text-white text-lg font-medium drop-shadow-lg">
+                    Em breve, você poderá trocar selos<br>
+                    repetidos com amigos e caçar Selos<br>
+                    Lendários que valem prêmios reais
+                </p>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Seção: Onde ganhar selos hoje -->
+    <section class="w-full py-20 bg-bg-light-beige border-y border-01">
+        <div class="max-w-5xl mx-auto px-6">
+
+            <h2 class="text-text-primary text-xl mb-10">Onde ganhar selos hoje?</h2>
+
+            <!-- Grid de categorias -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+
+                <!-- Card 1 -->
+                <div class="bg-color-primary rounded-xl p-12 flex items-center justify-center">
+                    <i class="ph ph-coffee text-5xl text-beige"></i>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-color-primary rounded-xl p-12 flex items-center justify-center">
+                    <i class="ph ph-fork-knife text-5xl text-beige"></i>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-color-primary rounded-xl p-12 flex items-center justify-center">
+                    <i class="ph ph-briefcase text-5xl text-beige"></i>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="bg-color-primary rounded-xl p-12 flex items-center justify-center">
+                    <i class="ph ph-heart text-5xl text-beige"></i>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="bg-color-primary rounded-xl p-12 flex items-center justify-center">
+                    <i class="ph ph-t-shirt text-5xl text-beige"></i>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="bg-color-primary rounded-xl p-12 flex items-center justify-center">
+                    <i class="ph ph-book text-5xl text-beige"></i>
+                </div>
+
+            </div>
+
+            <!-- Botão ver lista -->
+            <div class="flex justify-center mt-10">
+                <button class="bg-black !text-white px-6 py-2 rounded-lg text-sm">
+                    Ver lista completa
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Seção: Mockup do celular -->
+    <section class="w-full py-20 bg-white border-b border-01">
+        <div class="max-w-4xl mx-auto px-6 flex justify-center">
+
+            <!-- MOCKUP DO CELULAR -->
+            <div class="w-72 bg-white rounded-3xl border-4 border-black p-4 pb-8 shadow-lg flex flex-col items-center">
+
+                <!-- Top notch -->
+                <div class="w-24 h-3 bg-black rounded-b-xl mb-4"></div>
+
+                <!-- Foto do café -->
+                <img src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=400&q=60"
+                    alt="Café" class="w-full h-48 object-cover rounded-xl">
+
+                <!-- Grade de botões -->
+                <div class="grid grid-cols-3 gap-3 mt-6 mb-6 w-full px-2">
+                    <div class="border border-01 rounded-xl h-16 flex items-center justify-center">
+                        <i class="ph ph-user text-2xl"></i>
+                    </div>
+                    <div class="border border-01 rounded-xl h-16 flex items-center justify-center">
+                        <i class="ph ph-user text-2xl"></i>
+                    </div>
+                    <div class="border border-01 rounded-xl h-16 flex items-center justify-center">
+                        <i class="ph ph-user text-2xl"></i>
+                    </div>
+                    <div class="border border-01 rounded-xl h-16 flex items-center justify-center"></div>
+                    <div class="border border-01 rounded-xl h-16 flex items-center justify-center"></div>
+                    <div class="border border-01 rounded-xl h-16 flex items-center justify-center"></div>
+                </div>
+
+                <!-- Botão criar conta -->
+                <a href="/registro" class="w-full">
+                    <button class="w-full bg-black !text-white py-3 rounded-xl font-medium cursor-pointer">
+                        Criar minha conta
+                    </button>
+                </a>
+            </div>
+        </div>
+    </section>
 </div>

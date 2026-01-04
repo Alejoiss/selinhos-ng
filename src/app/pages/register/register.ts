@@ -3,11 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NgxMaskDirective } from 'ngx-mask';
 import { of, Subscription } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
+import { TermsModal } from '../../components/terms-modal/terms-modal';
 import { ConsumerService } from '../../services/consumer/consumer.service';
 import { CustomValidators } from '../../utils/validators';
 
@@ -19,6 +21,7 @@ import { CustomValidators } from '../../utils/validators';
         ReactiveFormsModule,
         RouterModule,
         NzAlertModule,
+        NzModalModule
     ],
     templateUrl: './register.html',
     styleUrl: './register.scss'
@@ -39,7 +42,8 @@ export class Register implements OnInit {
         private notification: NzNotificationService,
         private consumerService: ConsumerService,
         private router: Router,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private modal: NzModalService
     ) {
         this.form = this.fb.group({
             cpf: ['', [Validators.required, CustomValidators.cpfValidator()]],
@@ -49,8 +53,7 @@ export class Register implements OnInit {
             cellphone: ['', [Validators.required]],
             password: ['', [Validators.required, Validators.minLength(6)]],
             birthday: ['', [Validators.required]],
-            handle: ['', [Validators.required, CustomValidators.handleValidator()]],
-        });
+            handle: ['', [Validators.required, CustomValidators.handleValidator()]],            accepted_terms: [false, [Validators.requiredTrue]]        });
     }
 
     ngOnInit(): void {
@@ -209,6 +212,17 @@ export class Register implements OnInit {
                 'Por favor, preencha todos os campos corretamente antes de enviar.'
             );
         }
+    }
+
+    openTerms(event: Event): void {
+        event.preventDefault();
+        this.modal.create({
+            nzTitle: 'Termos de Uso',
+            nzContent: TermsModal,
+            nzFooter: null,
+            nzWidth: 800,
+            nzMaskClosable: true
+        });
     }
 
     ngOnDestroy(): void {

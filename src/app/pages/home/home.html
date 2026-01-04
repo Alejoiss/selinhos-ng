@@ -1,106 +1,129 @@
-<div class="min-h-screen bg-gray-50">
-	<div class="max-w-5xl mx-auto p-6">
-		<!-- Top bar -->
-		<div class="flex items-center justify-between mb-6">
-			<div class="flex items-center space-x-4">
-				<a [routerLink]="['/selecionar-cidade']" class="flex items-center space-x-2 text-gray-700 hover:text-gray-900">
-					<i class="ph ph-map-pin text-xl"></i>
-					<div>
-						<div class="text-sm font-semibold">Cidade</div>
-						@if ((consumer$ | async)?.selected_city) {
-							<div class="text-sm text-gray-500">{{ (consumer$ | async)?.selected_city?.name }} - {{ (consumer$ | async)?.selected_city?.state?.uf }}</div>
-						}
-						@else {
-							<div class="text-sm text-gray-400">Selecionar cidade</div>
-						}
-					</div>
-				</a>
-			</div>
+@if (loading) {
+    <div class="w-full h-screen flex items-center justify-center">
+        <i class="ph ph-spinner ph-spin text-4xl text-color-primary"></i>
+    </div>
+}
+@else {
+    <div class="w-full max-w-2xl mx-auto p-4 space-y-6">
+        <!-- Top bar -->
+        <header class="flex items-center justify-between">
+            <img src="/assets/images/logo.svg" alt="Selo Clube" class="w-10 h-10">
 
-			<div class="flex items-center space-x-3">
-				<a [routerLink]="['/usuario']" class="p-2 rounded-md hover:bg-gray-100"><i class="ph ph-user text-xl text-gray-700"></i></a>
-				<button class="p-2 rounded-md hover:bg-gray-100"><i class="ph ph-qrcode text-xl text-gray-700"></i></button>
-			</div>
-		</div>
+            <a [routerLink]="['/selecionar-cidade']" class="flex items-center gap-1 text-color-primary text-">
+                <span class="font-medium">@if ((consumer$ | async)?.selected_city) {
+                    {{ (consumer$ | async)?.selected_city?.name }}
+                } @else {
+                    Selecionar cidade
+                }</span>
+            </a>
 
-		<!-- Search -->
-		<div class="mb-4">
-			<div class="relative">
-                <button class="add-stamp-button flex items-center gap-3 px-4 py-4 mb-4 w-full text-left block" (click)="openQrScanner()">
-                    <span class="add-stamp-icon">
-                        <i class="ph ph-squares-four text-xl text-white"></i>
-                    </span>
-                    <span class="font-medium">Adicione selo</span>
-                </button>
-                @if (lastScanned) {
-                    <div class="mb-3 text-sm text-green-700">QR lido: {{ lastScanned }}</div>
+            <app-consumer-button [consumer]="(consumer$ | async)"></app-consumer-button>
+        </header>
+
+        <!-- Botão adicionar selo -->
+        <button (click)="openQrScanner()"
+            class="w-full bg-brand-variant text-color-primary font-medium rounded-xl py-4 border border-border-01 flex items-center justify-center gap-2 cursor-pointer">
+            <i class="ph ph-qr-code text-2xl"></i>
+            Adicionar selo
+        </button>
+
+        <!-- Campo de busca -->
+        <div class="mt-4">
+            <!-- <p class="text-text-secondary text-sm mb-2">Consiga selos aqui</p> -->
+
+            <div class="bg-white border border-border-01 w-full rounded-xl px-4 py-3 flex items-center gap-2">
+                <input type="text" placeholder="Buscar estabelecimentos" [(ngModel)]="searchTerm" (input)="applyFilter()"
+                    class="bg-transparent w-full outline-none text-color-primary">
+                <i class="ph ph-magnifying-glass text-xl text-color-secondary"></i>
+            </div>
+        </div>
+
+        <!-- Botão: já tenho selos aqui -->
+        <div class="w-full bg-brand text-white font-medium rounded-xl py-3 text-center block text-white">Já tenho selos aqui</div>
+
+        <!-- Cards: Locais com selo -->
+        <div>
+            @if (stampsCompanies.length === 0) {
+                <div class="text-color-secondary">Nenhum local com selo encontrado.</div>
+            }
+
+            <ul class="space-y-4">
+                @for (c of stampsCompanies; track c.id) {
+                    <li (click)="openCompany(c.id)" role="button"
+                        class="border border-border-01 bg-bg-light rounded-xl p-4 space-y-3 cursor-pointer">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-semibold text-2xl text-color-primary tracking-tight">{{ c.name }}</h4>
+                            <button
+                                class="border border-border-01 px-4 py-1 rounded-full bg-brand-variant text-sm font-medium">
+                                {{ c.total_stamps }} Selos
+                            </button>
+                        </div>
+
+                        <div class="relative rounded-lg overflow-hidden h-40 bg-bg-light-beige">
+                            @if (c.banner) {
+                                <img src="{{ c.banner }}" alt="{{ c.name }}" class="w-full h-full object-cover" />
+                            }
+                            @else {
+                                <div class="w-full h-full bg-gray-300 flex items-center justify-center banner-placeholder">
+                                    <i class="ph ph-building text-4xl text-white"></i>
+                                </div>
+                            }
+                        </div>
+
+                        <div class="company-banner-logo -mt-8 flex items-center justify-center z-10 relative">
+                            @if (c.logo) {
+                                <img src="{{ c.logo }}" alt="{{ c.name }}" class="w-16 h-16 rounded-lg border-2 border-white object-cover bg-white p-1" />
+                            }
+                            @else {
+                                <div class="w-16 h-16 rounded-lg border-2 border-white bg-white flex items-center justify-center">
+                                    <i class="ph ph-store text-xl text-gray-500"></i>
+                                </div>
+                            }
+                        </div>
+                    </li>
                 }
-				<div class="relative">
-					<i class="ph ph-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-					<input nz-input [(ngModel)]="searchTerm" (input)="applyFilter()" placeholder="Pesquisar estabelecimentos"
-						class="w-full h-12 pl-12 pr-4 border border-gray-300 rounded-md" />
-				</div>
-			</div>
-		</div>
+            </ul>
+        </div>
 
-		<!-- Company lists -->
-		<div class="grid grid-cols-1 gap-6">
-			<div>
-				<h3 class="text-lg font-semibold mb-3">Locais com selo</h3>
-                @if (stampsCompanies.length === 0) {
-                    <div class="text-gray-500">Nenhum local com selo encontrado.</div>
+        <!-- Divider button -->
+        <div class="w-full bg-brand text-white font-medium rounded-xl py-3 text-center text-white">Outros estabelecimentos</div>
+
+        <!-- Cards: Outros estabelecimentos -->
+        <div>
+            @if (otherCompanies.length === 0) {
+                <div class="text-color-secondary">Nenhum outro local encontrado.</div>
+            }
+
+            <ul class="space-y-4 mt-4">
+                @for (c of otherCompanies; track c.id) {
+                    <li (click)="openCompany(c.id)" role="button"
+                        class="border border-border-01 bg-bg-light rounded-xl p-4 space-y-3 cursor-pointer">
+                        <h4 class="font-semibold text-2xl text-color-primary tracking-tight">{{ c.name }}</h4>
+
+                        <div class="relative rounded-lg overflow-hidden h-40 bg-bg-light-beige">
+                            @if (c.banner) {
+                                <img src="{{ c.banner }}" alt="{{ c.name }}" class="w-full h-full object-cover" />
+                            }
+                            @else {
+                                <div class="w-full h-full bg-gray-300 flex items-center justify-center banner-placeholder">
+                                    <i class="ph ph-building text-4xl text-white"></i>
+                                </div>
+                            }
+                        </div>
+
+                        <div class="company-banner-logo -mt-8 flex items-center justify-center z-10 relative">
+                            @if (c.logo) {
+                                <img src="{{ c.logo }}" alt="{{ c.name }}" class="w-16 h-16 rounded-lg border-2 border-white object-cover bg-white p-1" />
+                            }
+                            @else {
+                                <div class="w-16 h-16 rounded-lg border-2 border-white bg-white flex items-center justify-center">
+                                    <i class="ph ph-store text-xl text-gray-500"></i>
+                                </div>
+                            }
+                        </div>
+                    </li>
                 }
-                <ul class="space-y-3">
-                    @for (c of stampsCompanies; track c.id) {
-                        <li role="button" tabindex="0" (click)="openCompany(c.id)" class="company-card cursor-pointer">
-                            <div class="flex items-center">
-                                <div class="company-logo w-16 h-16 mr-4 flex items-center justify-center bg-white rounded-md overflow-hidden">
-                                    @if (c.logo) {
-                                        <img src="{{ c.logo }}" alt="{{ c.name }}" class="w-full h-full object-contain" />
-                                    }
-                                    @else {
-                                        <i class="ph ph-store text-2xl text-gray-500"></i>
-                                    }
-                                </div>
-                                <div>
-                                    <div class="italic font-light text-lg">{{ c.name }}</div>
-                                </div>
-                            </div>
-                            <div class="flex flex-col items-end">
-                                <div class="badge bg-purple-600 text-white px-3 py-1 rounded-md text-sm font-semibold">{{ c.total_stamps }} selos</div>
-                            </div>
-                        </li>
-                    }
-                </ul>
-			</div>
-
-			<div>
-				<h3 class="text-lg font-semibold mb-3">Outros locais</h3>
-                @if (otherCompanies.length === 0) {
-                    <div class="text-gray-500">Nenhum outro local encontrado.</div>
-                }
-                <ul class="space-y-3">
-                    @for (c of otherCompanies; track c.id) {
-                        <li role="button" tabindex="0" (click)="openCompany(c.id)" class="company-card cursor-pointer">
-                            <div class="flex items-center">
-                                <div class="company-logo w-16 h-16 mr-4 flex items-center justify-center bg-white rounded-md overflow-hidden">
-                                    @if (c.logo) {
-                                        <img src="{{ c.logo }}" alt="{{ c.name }}" class="w-full h-full object-contain" />
-                                    }
-                                    @else {
-                                        <i class="ph ph-store text-2xl text-gray-500"></i>
-                                    }
-                                </div>
-                                <div>
-                                    <div class="italic font-light text-lg">{{ c.name }}</div>
-                                </div>
-                            </div>
-                            <div class="text-sm text-gray-500">—</div>
-                        </li>
-                    }
-                </ul>
-			</div>
-		</div>
-	</div>
-</div>
-
+            </ul>
+        </div>
+    </div>
+}

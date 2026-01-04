@@ -12,6 +12,7 @@ export class Company {
     state!: string;
     city!: string;
     logo?: string;
+    banner?: string;
 
     // transient
     total_stamps?: number;

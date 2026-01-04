@@ -10,6 +10,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { Observable } from 'rxjs';
 
+import { ConsumerButton } from '../../components/consumer-button/consumer-button';
 import { QrScannerModalComponent } from '../../components/qr-scanner/qr-scanner-modal';
 import { Company } from '../../models/company/company';
 import { Consumer } from '../../models/consumer/consumer';
@@ -26,13 +27,14 @@ import { ConsumerService } from '../../services/consumer/consumer.service';
         NzSelectModule,
         RouterModule,
         FormsModule,
-        AsyncPipe
+        AsyncPipe,
+        ConsumerButton
     ],
     templateUrl: './home.html',
     styleUrl: './home.scss'
 })
 export class Home implements OnInit {
-    consumer$!: Observable<Consumer>;
+    consumer$!: Observable<Consumer | null>;
     companies: Company[] = [];
     stampsCompanies: Company[] = [];
     otherCompanies: Company[] = [];
@@ -103,4 +105,6 @@ export class Home implements OnInit {
             }
         });
     }
+
+
 }

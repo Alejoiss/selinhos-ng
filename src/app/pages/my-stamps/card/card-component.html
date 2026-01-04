@@ -1,12 +1,19 @@
 <div class="campaign-card">
-    <div class="flex items-center justify-between mb-4">
-        <div class="font-semibold italic mr-2">{{ card.campaign_name }}</div>
-        <div class="text-sm text-gray-600">{{ card.total_stamps }} / {{ card.campaign_quantity_stamps }}</div>
+    <div class="w-full mb-3">
+        <div class="flex items-center justify-center">
+            <div class="font-semibold text-lg">Recompensa: {{ card.campaign_prize }}</div>
+        </div>
     </div>
 
-    <div class="text-sm mb-4">
-        {{ card.campaign_prize }}
+    <div class="status-message text-sm text-gray-700 mb-3">
+        {{ statusMsg }} {{ card.total_stamps }} / {{ card.campaign_quantity_stamps }}
     </div>
+
+    @if (card.campaign_banner) {
+        <div class="campaign-banner mb-4 h-80 w-full rounded-lg overflow-hidden">
+            <img src="{{ card.campaign_banner }}" alt="Banner da campanha" class="w-full h-full object-cover" />
+        </div>
+    }
 
     <div class="card-grid pb-4">
         @for (i of slots; track i) {
@@ -19,11 +26,12 @@
         }
     </div>
 
-    <div class="status-message text-sm text-gray-700 mb-3">{{ statusMsg }}</div>
-
     @if (isComplete) {
-        <div class="exchange-button">
-            <button nz-button nzType="primary" [disabled]="card.requested" (click)="confirmRequest()">
+        <div class="exchange-button w-1/2">
+            <button nz-button [disabled]="card.requested" (click)="confirmRequest()"
+                [ngClass]="card.requested ?
+                    'bg-bg-light text-color-secondary font-medium !rounded-xl py-4 border border-border-01 flex items-center justify-center gap-2 cursor-not-allowed opacity-60' :
+                    'w-full bg-brand-variant text-color-primary font-medium !rounded-xl !py-2 !h-auto !border border-border-01 flex items-center justify-center gap-2 cursor-pointer'">
                 @if (card.requested && card.active) {
                     Resgate solicitado
                 }
@@ -35,10 +43,10 @@
                 }
             </button>
             @if (card.requested && card.active) {
-                <div class="text-xs text-gray-500 mt-2">Solicitado em: {{ card.requested_at | date:'short' }}</div>
+                <div class="text-xs text-color-secondary mt-2">Solicitado em: {{ card.requested_at | date:'short' }}</div>
             }
             @else if (card.requested && !card.active) {
-                <div class="text-xs text-gray-500 mt-2">Resgatado em: {{ card.used_at | date:'short' }}</div>
+                <div class="text-xs text-color-secondary mt-2">Resgatado em: {{ card.used_at | date:'short' }}</div>
             }
         </div>
     }

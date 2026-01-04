@@ -1,9 +1,9 @@
 .card-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 20px;
     justify-content: center; /* centraliza itens e a última linha */
-    max-width: calc(5 * 48px + 4 * 12px);
+    max-width: calc(5 * 60px + 4 * 20px);
     margin: 0 auto;
 }
 .campaign-card {
@@ -13,26 +13,33 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: 0 8px 20px rgba(16,24,40,0.06);
-    border: 1px solid rgba(16,24,40,0.04);
+    box-shadow: 0 8px 20px rgba(16, 24, 40, 0.06);
+    border: 1px solid rgba(16, 24, 40, 0.04);
 }
-.campaign-card .font-semibold { color: #111827; }
+.campaign-card .font-semibold {
+    color: #111827;
+}
 .stamp-slot {
-    width: 48px;
-    height: 48px;
+    width: 60px;
+    height: 60px;
     border: 1px dashed #e5e7eb;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(180deg, #ffffff, #fbfbff);
     border-radius: 6px;
     overflow: hidden;
-    transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+    transition:
+        transform 0.12s ease,
+        box-shadow 0.12s ease,
+        background 0.12s ease;
 }
 
 .status-message {
+    font-weight: 300;
+    font-style: Light;
+    font-size: 16px;
     text-align: center;
-    color: #111827;
+    vertical-align: middle;
 }
 .exchange-button {
     text-align: center;
@@ -40,25 +47,38 @@
 
 /* Visual distinction for empty vs filled slots */
 .stamp-slot:empty {
-    border-style: dashed;
-    border-color: #d1d5db;
-    background: linear-gradient(180deg, #f3f4f6, #ffffff);
+    border-style: solid;
+    border-color: #187a69;
+    background-color: #f6f1eb;
 }
-.stamp-slot:empty::after {
-    content: '';
-    width: 10px;
-    height: 10px;
-    border-radius: 2px;
-    background: linear-gradient(180deg, #e9eef6, #dfe7f0);
-    box-shadow: inset 0 -2px 0 rgba(0,0,0,0.04);
-}
+
 .stamp-slot:not(:empty) {
     border: none;
-    box-shadow: 0 6px 18px rgba(16,24,40,0.06);
+    box-shadow: 0 6px 18px rgba(16, 24, 40, 0.06);
 }
-.stamp-slot img { display:block; width:100%; height:100%; object-fit:cover; }
-.stamp-slot:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(16,24,40,0.08); }
+.stamp-slot img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.stamp-slot:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 28px rgba(16, 24, 40, 0.08);
+}
 
 @media (max-width: 640px) {
-    .campaign-card { padding: 12px; }
+    .campaign-card {
+        padding: 12px;
+    }
+}
+
+::ng-deep .ant-btn.ant-btn-primary {
+    background-color: #BFF426 !important;
+    color: black !important;
+    border: none !important;
+}
+
+::ng-deep .ant-btn {
+    border-radius: 8px !important;
 }

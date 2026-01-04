@@ -1,0 +1,48 @@
+<div class="flex items-center gap-3">
+    {{ consumer?.first_name }}
+    <div class="relative">
+        <button type="button"
+            class="w-10 h-10 flex items-center justify-center rounded-full bg-bg-light border border-border-01 cursor-pointer overflow-hidden"
+            (click)="showUserMenu = !showUserMenu" (blur)="showUserMenu = false" tabindex="0">
+            @if (consumer && consumer.avatar) {
+                <img src="{{ consumer.avatar }}" alt="Avatar" class="w-10 h-10 object-cover rounded-full" />
+            }
+            @else {
+                <i class="ph ph-user text-2xl text-color-secondary"></i>
+            }
+        </button>
+
+        @if (showUserMenu) {
+            <div class="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg z-50 border border-zinc-200 animate-fade-in">
+                <ul class="pt-2 !mb-0">
+                    <li class="flex items-center gap-2 px-4 py-2 hover:bg-zinc-100 cursor-pointer transition"
+                        (mousedown)="goTo('/usuario/dados')">
+                        <i class="ph ph-user text-lg text-zinc-700"></i>
+                        <span>Meus dados</span>
+                    </li>
+
+                    <li class="flex items-center gap-2 px-4 py-2 hover:bg-zinc-100 cursor-pointer transition"
+                        (mousedown)="goTo('/usuario/trocar-senha')">
+                        <i class="ph ph-key text-lg text-zinc-700"></i>
+                        <span>Trocar senha</span>
+                    </li>
+
+                    <li class="flex items-center gap-2 px-4 py-2 hover:bg-zinc-100 cursor-pointer transition"
+                        (mousedown)="goTo('/usuario/imagem-perfil')">
+                        <i class="ph ph-camera text-lg text-zinc-700"></i>
+                        <span>Alterar imagem de perfil</span>
+                    </li>
+
+                    <li class="border-t border-zinc-200 my-2"></li>
+
+                    <li class="flex items-center gap-2 px-4 py-2 hover:bg-zinc-100 cursor-pointer transition"
+                        (mousedown)="logout()">
+                        <i class="ph ph-sign-out text-lg text-red-600"></i>
+                        <span class="text-red-600">Logout</span>
+                    </li>
+                </ul>
+            </div>
+        }
+    </div>
+
+</div>

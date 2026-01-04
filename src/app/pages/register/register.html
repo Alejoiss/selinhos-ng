@@ -1,4 +1,4 @@
-<div class="flex items-center justify-center min-h-screen bg-white font-sans">
+<div class="flex items-center justify-center min-h-screen font-sans">
 
     <div class="w-full max-w-lg px-8">
 
@@ -131,9 +131,16 @@
             </div>
 
             <!-- Botão -->
-            <div class="text-center pt-4 flex flex-col gap-4 items-center">
-                <button type="submit"
-                    class="bg-purple-600 !text-white px-8 py-2 rounded-md hover:bg-purple-700 transition-colors w-1/2 cursor-pointer">
+            <div class="text-center pt-4 flex flex-col gap-4 items-center w-full">
+                <label class="flex items-center gap-3 text-sm text-color-primary w-full">
+                    <input type="checkbox" formControlName="accepted_terms" class="mt-1" />
+                    <span>Aceito os termos e condições. <a href="#" (click)="openTerms($event)" class="text-color-primary !underline">Veja aqui os termos</a></span>
+                </label>
+
+                <button type="submit" [disabled]="form.invalid || addingUser || emailExists || cpfExists || handleExists"
+                    [ngClass]="form.invalid || addingUser || emailExists || cpfExists || handleExists ?
+                        'bg-gray-400 cursor-not-allowed' : 'bg-brand-variant text-color-primary cursor-pointer'"
+                    class="font-medium !rounded-xl !py-2 w-full">
                     @if (addingUser) {
                         <i class="ph ph-spinner animate-spin text-base align-middle"></i>
                     }

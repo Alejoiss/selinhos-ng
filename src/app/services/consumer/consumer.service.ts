@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, shareReplay } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 
 import { Consumer } from '../../models/consumer/consumer';
 import { BaseService } from '../base.service';
@@ -10,10 +11,37 @@ import { BaseService } from '../base.service';
 })
 export class ConsumerService extends BaseService<Consumer> {
 
+    private consumerSubject = new BehaviorSubject<Consumer | null>(null);
+
     constructor(
         http: HttpClient
     ) {
         super(http, 'registers/consumer');
+    }
+
+    /**
+     * Fetch and emit the logged user into the subject
+     */
+    refreshLoggedUser(): Observable<Consumer | null> {
+        return this.httpClient.get<Consumer>(`${this.url}${this.endpoint}/`).pipe(
+            tap(user => this.consumerSubject.next(user)),
+            switchMap(user => of(user))
+        );
+    }
+
+    getLoggedUser() {
+        // If we already have a value, return it as observable; otherwise fetch
+        if (!this.consumerSubject.getValue()) {
+            this.refreshLoggedUser().subscribe();
+        }
+        return this.consumerSubject.asObservable();
+    }
+
+    /**
+     * Upload a new avatar using form data with key 'avatar'
+     */
+    changeAvatar(fd: FormData) {
+        return this.httpClient.post(`${this.url}${this.endpoint}/change-avatar/`, fd);
     }
 
     /**
@@ -39,13 +67,6 @@ export class ConsumerService extends BaseService<Consumer> {
     checkEmail(email: string): Observable<boolean> {
         const params = new HttpParams().set('email', email);
         return this.httpClient.get<boolean>(`${this.url}${this.endpoint}/check-email/`, { params });
-    }
-
-    getLoggedUser() {
-        return this.httpClient.get<Consumer>(`${this.url}${this.endpoint}/`)
-            .pipe(
-                shareReplay()
-            );
     }
 
     createChangeConsumerPasswordRequest(cpf: string) {

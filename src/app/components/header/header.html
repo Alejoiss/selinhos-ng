@@ -1,76 +1,13 @@
-<!-- <header
-    class="w-full bg-gradient-to-br from-[#1a2240] via-[#001529] to-[#2d1a40] shadow flex items-center px-4 py-2 relative z-10">
-    <button
-        class="block md:hidden w-8 h-8 flex items-center justify-center mr-3 bg-white/10 hover:bg-white/20 transition p-0"
-        (click)="layoutService.toggleMobileMenu()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
-            stroke="white">
-            <rect x="0.5" y="0.5" width="23" height="23" rx="6" fill="none" stroke="white" />
-            <line x1="5" y1="8" x2="19" y2="8" stroke="white" stroke-width="2" stroke-linecap="round" />
-            <line x1="5" y1="12" x2="19" y2="12" stroke="white" stroke-width="2" stroke-linecap="round" />
-            <line x1="5" y1="16" x2="19" y2="16" stroke="white" stroke-width="2" stroke-linecap="round" />
-        </svg>
-    </button>
-    <img src="/assets/logo.png" alt="">
-    <span class="text-xl md:text-2xl font-bold tracking-tight text-white drop-shadow">Selo Clube</span>
-    @if (consumer) {
-        <div class="ml-auto flex items-center gap-2">
-            <div class="relative">
-                <button type="button"
-                    class="flex items-center gap-2 px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 transition cursor-pointer select-none"
-                    (click)="showDropdown = !showDropdown" (blur)="showDropdown = false" tabindex="0">
-                    <i class="ph ph-user-circle text-2xl text-white/80"></i>
-                    <span class="font-medium text-white/90">{{ consumer.first_name }}</span>
-                    @if (consumer.user_usercompanies && consumer.user_usercompanies.length > 1) {
-                        <span class="text-xs text-white/60">({{ company.name }})</span>
-                    }
-                    <i class="ph ph-caret-down ml-1 text-white/70"></i>
-                </button>
-                @if (showDropdown) {
-                    <div
-                        class="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg z-50 border border-zinc-200 animate-fade-in">
-                        <ul class="pt-2 !mb-0">
-                            <li class="flex items-center gap-2 px-4 py-2 hover:bg-zinc-100 cursor-pointer transition"
-                                (mousedown)="goToUserArea()">
-                                <i class="ph ph-user text-lg text-zinc-700"></i>
-                                <span>Meu cadastro</span>
-                            </li>
-                            @if (consumer.user_usercompanies && consumer.user_usercompanies.length > 1) {
-                            <li class="relative">
-                                <div class="flex items-center gap-2 px-4 py-2 hover:bg-zinc-100 cursor-pointer transition"
-                                    (mouseenter)="showSubmenu = true"
-                                    (mouseleave)="showSubmenu = false"
-                                    (click)="showSubmenu = !showSubmenu">
-                                    <i class="ph ph-buildings text-lg text-zinc-700"></i>
-                                    <span>Trocar empresa</span>
-                                    <i class="ph ph-caret-right ml-auto text-zinc-500"></i>
-                                </div>
-                                @if (showSubmenu) {
-                                    <div class="header-submenu"
-                                        (mouseenter)="showSubmenu = true"
-                                        (mouseleave)="showSubmenu = false">
-                                        <ul class="py-2">
-                                            @for (userCompany of consumer.user_usercompanies; track userCompany.id) {
-                                                <li class="flex items-center gap-2 px-4 py-2 hover:bg-zinc-100 cursor-pointer transition" (mousedown)="changeCompany(userCompany.company); showSubmenu = false; showDropdown = false;">
-                                                    <i class="ph ph-building text-lg text-zinc-700"></i>
-                                                    <span>{{ userCompany.company.name }}</span>
-                                                </li>
-                                            }
-                                        </ul>
-                                    </div>
-                                }
-                            </li>
-                            }
-                            <li class="border-t border-zinc-200 my-2"></li>
-                            <li class="flex items-center gap-2 px-4 py-2 hover:bg-zinc-100 cursor-pointer transition"
-                                (mousedown)="logout()">
-                                <i class="ph ph-sign-out text-lg text-zinc-700"></i>
-                                <span class="text-zinc-700">Sair</span>
-                            </li>
-                        </ul>
-                    </div>
-                }
-            </div>
+<div class="w-full max-w-2xl mx-auto p-4 space-y-6">
+    <header class="flex items-center justify-between">
+        <!-- div de voltar ao início-->
+        <div class="flex items-center gap-2 text-black font-medium cursor-pointer">
+            <a routerLink="/home" class="flex items-center gap-2 !text-black font-medium cursor-pointer">
+                <i class="ph ph-arrow-circle-left text-lg"></i>
+                Voltar ao início
+            </a>
         </div>
-    }
-</header> -->
+
+        <app-consumer-button [consumer]="(consumer$ | async)"></app-consumer-button>
+    </header>
+</div>

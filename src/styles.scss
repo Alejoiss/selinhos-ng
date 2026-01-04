@@ -7,6 +7,44 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    /* Brand */
+    --color-brand: #187A69;
+    --color-brand-variant: #BFF426;
+    --color-beige: #ECE4D0;
+
+    /* Typography */
+    --color-text-primary: #273230;
+    --color-text-secondary: #757575;
+
+    /* Backgrounds */
+    --color-bg-light: #F9FAFB; /* claro/branco */
+    --color-bg-light-beige: #F6F1EB; /* claro/bege */
+    --color-bg-medium-beige: #F6F1EB; /* medium beige (same as light-beige as requested) */
+
+    /* Borders */
+    --color-border-01: #D9D9D9;
+}
+
+/* Apply medium beige background globally */
+html, body {
+    background-color: var(--color-bg-medium-beige);
+    color: var(--color-text-primary);
+}
+
+/* Utility helpers for direct usage */
+.bg-brand { background-color: var(--color-brand) !important; }
+.text-brand { color: var(--color-brand) !important; }
+.bg-brand-variant { background-color: var(--color-brand-variant) !important; }
+.border-01 { border-color: var(--color-border-01) !important; }
+.text-color-primary { color: var(--color-text-primary) !important; }
+.bg-color-primary { background-color: var(--color-text-primary) !important; }
+.text-color-secondary { color: var(--color-text-secondary) !important; }
+.bg-bg-light { background-color: var(--color-bg-light) !important; }
+.bg-bg-light-beige { background-color: var(--color-bg-light-beige) !important; }
+.bg-bg-medium-beige { background-color: var(--color-bg-medium-beige) !important; }
+.text-beige { color: var(--color-beige) !important; }
+
 * {
     font-family: "Asap", sans-serif !important;
 }
@@ -68,4 +106,8 @@ nz-divider {
 
 .ant-btn-link:has(.ph) {
     color: black !important;
+}
+
+input {
+    background-color: white !important;
 }

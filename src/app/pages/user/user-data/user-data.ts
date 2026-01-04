@@ -7,8 +7,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NgxMaskDirective } from 'ngx-mask';
 
-import { InternalHeader } from '../../../components/internal-header/internal-header';
-import { userDataHeaderConfig } from '../../../components/internal-header/internal-header-configs';
+import { Consumer } from '../../../models/consumer/consumer';
 import { ConsumerService } from '../../../services/consumer/consumer.service';
 
 @Component({
@@ -21,13 +20,11 @@ import { ConsumerService } from '../../../services/consumer/consumer.service';
         NzButtonModule,
         NzSpinModule,
         NgxMaskDirective,
-        InternalHeader
     ],
     templateUrl: './user-data.html',
     styleUrl: './user-data.scss'
 })
 export class UserData implements OnInit {
-    headerConfig = userDataHeaderConfig;
     form!: FormGroup;
     loading = true;
     saving = false;
@@ -47,7 +44,7 @@ export class UserData implements OnInit {
         });
 
         this.consumerService.getLoggedUser().subscribe({
-            next: (user) => {
+            next: (user: Consumer | null) => {
                 if (user && user.id) {
                     this.form.patchValue({
                         id: user.id,
@@ -72,7 +69,15 @@ export class UserData implements OnInit {
         this.consumerService.update(payload as any, id).subscribe({
             next: () => {
                 this.saving = false;
-                this.notification.success('Sucesso', 'Dados atualizados com sucesso.');
+                // refresh the cached consumer so other components (like consumer-button) reflect changes
+                this.consumerService.refreshLoggedUser().subscribe({
+                    next: () => {
+                        this.notification.success('Sucesso', 'Dados atualizados com sucesso.');
+                    },
+                    error: () => {
+                        this.notification.success('Sucesso', 'Dados atualizados com sucesso.');
+                    }
+                });
             },
             error: (err: any) => {
                 this.saving = false;

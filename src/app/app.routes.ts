@@ -23,12 +23,20 @@ export const routes: Routes = [
             {
                 path: 'dados',
                 loadComponent: () => import('./pages/user/user-data/user-data').then(m => m.UserData),
+                data: { animation: 'user-dados' },
                 title: 'Selo Clube - Meus dados'
             },
             {
                 path: 'trocar-senha',
                 loadComponent: () => import('./pages/user/user-change-password/user-change-password').then(m => m.UserChangePassword),
+                data: { animation: 'user-trocar-senha' },
                 title: 'Selo Clube - Trocar senha'
+            },
+            {
+                path: 'imagem-perfil',
+                loadComponent: () => import('./pages/user/user-change-avatar/user-change-avatar').then(m => m.UserChangeAvatar),
+                data: { animation: 'user-imagem-perfil' },
+                title: 'Selo Clube - Alterar imagem de perfil'
             },
             {
                 path: '',

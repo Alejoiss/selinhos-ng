@@ -20,7 +20,6 @@ import { RouterOutlet } from '@angular/router';
     ]
 })
 export class App {
-
     getRouteAnimationState(outlet: RouterOutlet) {
         return outlet && outlet.isActivated ? outlet.activatedRoute?.snapshot?.url.map(u => u.toString()).join('/') : '';
     }

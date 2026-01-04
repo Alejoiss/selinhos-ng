@@ -1,0 +1,10 @@
+.w-1\/2.max-w-\[200px\] {
+    max-width: 200px;
+}
+
+img[alt="Avatar preview"] {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 9999px;
+    object-fit: cover;
+}

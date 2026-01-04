@@ -1,41 +1,30 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { AsyncPipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { Observable } from 'rxjs';
 
-import { Company } from '../../models/company/company';
 import { Consumer } from '../../models/consumer/consumer';
-import { LayoutService } from '../../services/layout.service';
+import { ConsumerService } from '../../services/consumer/consumer.service';
+import { ConsumerButton } from '../consumer-button/consumer-button';
 
 @Component({
     selector: 'app-header',
     imports: [
-        RouterModule
+        RouterModule,
+        ConsumerButton,
+        AsyncPipe
     ],
     templateUrl: './header.html',
     styleUrl: './header.scss'
 })
-export class Header implements OnInit{
-    @Input() consumer!: Consumer;
-
-    company!: Company;
-    showDropdown = false;
-    showSubmenu = false;
+export class Header implements OnInit {
+    consumer$!: Observable<Consumer | null>;
 
     constructor(
-        public layoutService: LayoutService,
-        private router: Router
+        private consumerService: ConsumerService,
     ) { }
-    goToUserArea(): void {
-        this.showDropdown = false;
-        this.router.navigate(['/user/dados']);
-    }
 
-    ngOnInit(): void {
-    }
-
-    logout(): void {
-        this.showDropdown = false;
-        setTimeout(() => {
-            window.location.href = '/login';
-        }, 100);
+    ngOnInit() {
+        this.consumer$ = this.consumerService.getLoggedUser();
     }
 }

@@ -41,9 +41,16 @@
             </a>
         </div>
 
+        <div class="text-center">
+            <a routerLink="/registro"
+                class="text-sm text-gray-600 hover:text-gray-800 transition-colors duration-200 hover:underline">
+                Deseja se cadastrar?
+            </a>
+        </div>
+
         <div class="flex justify-center">
-            <button nz-button nzType="primary" nzSize="large" [nzLoading]="logando" type="submit"
-                class="w-3/4 h-12 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-md transition-all duration-200 transform hover:scale-105 focus:ring-4 focus:ring-purple-200">
+            <button nz-button nzSize="large" [nzLoading]="logando" type="submit"
+                class="w-3/4 bg-brand-variant text-color-primary font-medium !rounded-xl !py-2">
                 @if (!logando) {
                     Entrar
                 }

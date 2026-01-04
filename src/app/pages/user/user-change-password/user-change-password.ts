@@ -7,8 +7,6 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 
-import { InternalHeader } from '../../../components/internal-header/internal-header';
-import { userChangePasswordHeaderConfig } from '../../../components/internal-header/internal-header-configs';
 import { ConsumerService } from '../../../services/consumer/consumer.service';
 
 @Component({
@@ -20,14 +18,12 @@ import { ConsumerService } from '../../../services/consumer/consumer.service';
         NzInputModule,
         NzButtonModule,
         NzSpinModule,
-        RouterModule,
-        InternalHeader
+        RouterModule
     ],
     templateUrl: './user-change-password.html',
     styleUrl: './user-change-password.scss'
 })
 export class UserChangePassword implements OnInit {
-    headerConfig = userChangePasswordHeaderConfig;
     form!: FormGroup;
     saving = false;
 

@@ -89,6 +89,7 @@ export class QrScannerModalComponent implements AfterViewInit, OnDestroy {
     }
 
     close(): void {
+        try { this.scanner?.stop(); } catch (e) {}
         this.modalRef.close();
     }
 

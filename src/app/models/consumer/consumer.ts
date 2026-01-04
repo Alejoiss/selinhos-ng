@@ -13,4 +13,5 @@ export class Consumer {
     stamps?: number;
     handle!: string;
     selected_city!: City;
+    avatar?: string;
 }
