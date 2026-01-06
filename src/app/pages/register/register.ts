@@ -53,7 +53,9 @@ export class Register implements OnInit {
             cellphone: ['', [Validators.required]],
             password: ['', [Validators.required, Validators.minLength(6)]],
             birthday: ['', [Validators.required]],
-            handle: ['', [Validators.required, CustomValidators.handleValidator()]],            accepted_terms: [false, [Validators.requiredTrue]]        });
+            handle: ['', [Validators.required, CustomValidators.handleValidator()]],
+            accepted_terms: [false, [Validators.requiredTrue]]
+        });
     }
 
     ngOnInit(): void {
