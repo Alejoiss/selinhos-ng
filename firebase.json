@@ -1,0 +1,17 @@
+{
+    "hosting": {
+        "site": "seloclube-web",
+        "public": "dist/selo-clube-ng/browser",
+        "ignore": [
+            "firebase.json",
+            "**/.*",
+            "**/node_modules/**"
+        ],
+        "rewrites": [
+            {
+                "source": "**",
+                "destination": "/index.html"
+            }
+        ]
+    }
+}

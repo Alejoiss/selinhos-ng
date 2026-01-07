@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://selinhos-admin-py-production.up.railway.app/'
+    apiUrl: 'https://server-app.seloclube.com.br/'
 };
