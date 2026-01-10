@@ -1,49 +1,121 @@
-<div class="p-4 space-y-4">
+<div class="max-w-md mx-auto bg-white overflow-hidden">
+    <!-- ESTADO 1: ESCANEANDO QR CODE -->
     @if (!scannedText) {
-        <div class="scanner-area w-full">
-            <ngx-scanner-qrcode #scanner="scanner" [isBeep]="true" [vibrate]="300"></ngx-scanner-qrcode>
-            <div class="mt-3 text-sm text-color-secondary">Aponte a câmera para o QR Code</div>
-            <div class="mt-2 text-xs text-color-secondary">Se for solicitado permissão, permita o uso da câmera.</div>
-        </div>
+        <div class="flex flex-col items-center w-full bg-brand pb-6 border-solid !border-white !border-dashed border-2">
+
+            <!-- Header com fundo brand -->
+            <div class="w-full bg-brand h-16 rounded-b-2xl relative">
+                <button class="absolute top-4 right-4 !text-white text-2xl cursor-pointer" (click)="close()">
+                    <i class="ph ph-x"></i>
+                </button>
+            </div>
+
+            <!-- Scanner -->
+            <div class="-mt-4 w-full flex flex-col items-center px-4">
+                <div class="w-full">
+                    <ngx-scanner-qrcode #scanner="scanner" [isBeep]="true" [vibrate]="300"
+                        class="rounded-xl overflow-hidden bg-black" style="height: 260px;"></ngx-scanner-qrcode>
+                </div>
+
+                <div class="mt-4 text-sm text-color-secondary text-center !text-white">
+                    Aponte a câmera para o QR Code
+                </div>
+                <div class="mt-2 text-xs text-color-secondary text-center !text-white">
+                    Se for solicitado permissão, permita o uso da câmera.
+                </div>
+            </div>
+
+    </div>
     }
+
+    <!-- ESTADO 2: RESULTADO (SUCESSO OU ERRO) -->
     @else {
-        <div class="scanned-area w-full">
-            @if (loading) {
-                <div class="mt-4 text-sm text-color-secondary">Processando o token...</div>
-            }
 
-            @if (errorMsg) {
-                <div class="mt-4 text-sm text-red-600">{{ errorMsg }}</div>
-                <div class="mt-4"><button nz-button class="w-full rounded-xl py-3" (click)="close()">Fechar</button></div>
-            }
+        <!-- SUCESSO -->
+        @if (!errorMsg) {
 
-            @if (!loading && redeemedStamps.length > 0) {
-                <div class="mt-4">
-                    <div class="text-sm font-semibold">Selos resgatados</div>
-                    <ul class="mt-2 grid grid-cols-5 gap-2">
-                        @for (s of redeemedStamps; track s.id) {
-                            <li class="w-full h-12 bg-bg-light rounded-md border border-border-01 overflow-hidden flex items-center justify-center">
-                                @if (s?.stamp?.image) {
-                                    <img src="{{ s.stamp.image }}" alt="Selo" class="w-full h-full object-contain" />
-                                }
-                                @else {
-                                    <i class="ph ph-stamp text-2xl text-gray-300"></i>
-                                }
-                            </li>
-                        }
-                    </ul>
-                    <div class="mt-4">
-                        <button nz-button nzType="primary" class="w-full rounded-xl py-3" (click)="confirm()">Fechar</button>
+            <div class="w-full pb-6">
+
+                <!-- Topo verde -->
+                <div class="w-full bg-brand h-16 rounded-b-2xl relative">
+                    <button class="absolute top-4 right-4 text-white text-2xl cursor-pointer" (click)="close()">
+                        <i class="ph ph-x"></i>
+                    </button>
+                </div>
+
+                <!-- Ícone sobreposto -->
+                <div class="flex justify-center -mt-10">
+                    <div class="w-20 h-20 bg-brand-variant rounded-full flex items-center justify-center shadow-lg z-10">
+                        <i class="ph ph-stamp text-3xl text-brand"></i>
                     </div>
                 </div>
-            }
 
-            @if (!loading && redeemedStamps.length === 0 && !errorMsg) {
-                <div class="mt-4 space-y-2">
-                    <button nz-button nzType="primary" class="w-full rounded-xl py-3" (click)="confirm()">Usar</button>
-                    <button nz-button class="w-full rounded-xl py-3" (click)="close()">Fechar</button>
+                <!-- Mensagem -->
+                <div class="mt-6 text-center px-6">
+                    <p class="text-lg font-semibold text-text-primary">
+                        Parabéns, mais um selo<br> adicionado na sua coleção
+                    </p>
                 </div>
-            }
-        </div>
+
+                <!-- BOTÕES -->
+                <div class="mt-10 px-6 flex flex-col gap-3">
+
+                    <button nz-button nzType="primary" class="w-full py-3 rounded-xl bg-brand bg-brand-hover text-white border-none mb-4"
+                        (click)="addAnother()">
+                        Adicionar novo selo
+                    </button>
+
+                    <button nz-button class="w-full py-3 rounded-xl bg-white border border-brand text-brand border-brand-hover:hover text-brand-hover" (click)="close()">
+                        Fechar
+                    </button>
+
+                </div>
+            </div>
+        }
+
+        <!-- ERRO -->
+        @else {
+
+            <div class="w-full pb-6">
+
+                <!-- Topo vermelho -->
+                <div class="w-full bg-red-400 h-16 rounded-b-2xl relative">
+                    <button class="absolute top-4 right-4 text-white text-2xl cursor-pointer" (click)="close()">
+                        <i class="ph ph-x"></i>
+                    </button>
+                </div>
+
+                <!-- Ícone sobreposto -->
+                <div class="flex justify-center -mt-10">
+                    <div class="w-20 h-20 bg-red-700 rounded-full flex items-center justify-center shadow-lg z-10">
+                        <i class="ph ph-warning-circle text-3xl text-white"></i>
+                    </div>
+                </div>
+
+                <!-- Mensagem -->
+                <div class="mt-6 text-center px-6">
+                    <p class="text-lg font-semibold text-text-primary">
+                        Esse selo é inválido ou já foi adicionado<br> tente outro QR Code
+                    </p>
+                </div>
+
+                <!-- BOTÕES -->
+                <div class="mt-10 px-6 flex flex-col gap-3">
+
+                    <button nz-button nzType="primary" nzDanger class="w-full py-3 rounded-xl bg-red-600 text-white border-none mb-4"
+                        (click)="addAnother()">
+                        Adicionar novo selo
+                    </button>
+
+                    <button nz-button class="w-full py-3 rounded-xl bg-white border !border-red-600 !text-red-600"
+                        (click)="close()">
+                        Fechar
+                    </button>
+
+                </div>
+            </div>
+
+        }
     }
+
 </div>

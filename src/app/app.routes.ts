@@ -5,7 +5,12 @@ import { loggedUserGuard } from './guards/logged-user/logged-user-guard';
 export const routes: Routes = [
     {
         path: 'registro',
-        loadComponent: () => import('./pages/register/register').then(m => m.Register)
+        loadComponent: () => import('./pages/register/register').then(m => m.Register),
+        data: {
+            title: 'Selo Clube - Criar conta',
+            description: 'Crie sua conta no Selo Clube para começar a acumular e trocar selos digitais.',
+            image: '/assets/images/login-image.jpg'
+        }
     },
     {
         path: 'home',
@@ -48,17 +53,29 @@ export const routes: Routes = [
     {
         path: 'login',
         loadComponent: () => import('./pages/login/login').then(m => m.Login),
-        title: 'Selo Clube - Login'
+        title: 'Selo Clube - Login',
+        data: {
+            description: 'Faça login para acessar sua conta e gerenciar seus selos.' ,
+            image: '/assets/images/login-image.jpg'
+        }
     },
     {
         path: 'recuperar-senha',
         loadComponent: () => import('./pages/recover-password/recover-password').then(m => m.RecoverPassword),
-        title: 'Selo Clube - Recuperar senha'
+        title: 'Selo Clube - Recuperar senha',
+        data: {
+            description: 'Recupere o acesso à sua conta no Selo Clube com seu e-mail.' ,
+            image: '/assets/images/login-image.jpg'
+        }
     },
     {
         path: 'resetar-senha',
         loadComponent: () => import('./pages/reset-password/reset-password').then(m => m.ResetPassword),
-        title: 'Selo Clube - Redefinir senha'
+        title: 'Selo Clube - Redefinir senha',
+        data: {
+            description: 'Redefina sua senha de acesso ao Selo Clube.' ,
+            image: '/assets/images/login-image.jpg'
+        }
     },
     {
         path: 'selecionar-cidade',
@@ -75,7 +92,18 @@ export const routes: Routes = [
     {
         path: '',
         loadComponent: () => import('./pages/site/site').then(m => m.Site),
-        title: 'Selo Clube - Site'
+        title: 'Selo Clube - Site',
+        data: {
+            description: 'Selo Clube — sua fidelidade vale prêmios e vira coleção.',
+            image: '/assets/images/login-image.jpg',
+            structuredData: {
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "Selo Clube",
+                "url": window.location.origin,
+                "logo": window.location.origin + '/assets/images/login-image.jpg'
+            }
+        }
     },
     {
         path: '**',

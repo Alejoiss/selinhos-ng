@@ -10,6 +10,7 @@
 :root {
     /* Brand */
     --color-brand: #187A69;
+    --color-brand-hover: #145E52;
     --color-brand-variant: #BFF426;
     --color-beige: #ECE4D0;
 
@@ -34,7 +35,11 @@ html, body {
 
 /* Utility helpers for direct usage */
 .bg-brand { background-color: var(--color-brand) !important; }
+.bg-brand-hover:hover { background-color: var(--color-brand-hover) !important; }
+.border-brand { border-color: var(--color-brand) !important; }
+.border-brand-hover:hover { border-color: var(--color-brand-hover) !important; }
 .text-brand { color: var(--color-brand) !important; }
+.text-brand-hover:hover { color: var(--color-brand-hover) !important; }
 .bg-brand-variant { background-color: var(--color-brand-variant) !important; }
 .border-01 { border-color: var(--color-border-01) !important; }
 .text-color-primary { color: var(--color-text-primary) !important; }

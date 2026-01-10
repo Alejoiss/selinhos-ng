@@ -1,23 +1,14 @@
-.scanner-area {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    width: 100%;
+:host {
+    display: block;
 }
 
-ngx-scanner-qrcode {
+.scanner-area ngx-scanner-qrcode {
     width: 100%;
     height: 260px;
     background: #000;
     border-radius: 12px;
-    overflow: hidden;
 }
 
 .scanned-area {
     word-break: break-word;
-}
-
-.scanned-area ul li {
-    min-height: 48px;
-    max-height: 48px;
 }

@@ -84,17 +84,23 @@ export class Home implements OnInit {
 
     openQrScanner(): void {
         const ref = this.modal.create({
-            nzTitle: 'Adicionar selo',
             nzContent: QrScannerModalComponent,
-            nzFooter: null
+            nzFooter: null,
+            nzClosable: false,      // remove o X padrão
+            nzMaskClosable: false,  // impede fechar clicando fora (opcional)
+            nzBodyStyle: { padding: '0' }, // tira padding para seu layout ocupar tudo
+            nzWidth: 400            // ajuste conforme seu layout
         });
 
         ref.afterClose.subscribe((result) => {
             if (result) {
                 if (typeof result === 'object' && result.redeemed && result.redeemed.length > 0) {
-                    // Refresh company counts to reflect new stamps
                     this.fetchCompanies();
-                    this.notification.create('success', 'Selos resgatados', `${result.redeemed.length} selo(s) resgatados`);
+                    this.notification.create(
+                        'success',
+                        'Selos resgatados',
+                        `${result.redeemed.length} selo(s) resgatados`
+                    );
                 } else {
                     const token = (typeof result === 'object') ? (result.token ?? null) : result;
                     if (token) {
@@ -105,6 +111,4 @@ export class Home implements OnInit {
             }
         });
     }
-
-
 }

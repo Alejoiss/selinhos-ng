@@ -31,7 +31,7 @@ export class QrScannerModalComponent implements AfterViewInit, OnDestroy {
         private cdr: ChangeDetectorRef,
         private stampQrService: StampQRService,
         private notification: NzNotificationService
-    ) {}
+    ) { }
 
     ngAfterViewInit(): void {
         // Ensure wasm load (assets configured in angular.json)
@@ -50,7 +50,7 @@ export class QrScannerModalComponent implements AfterViewInit, OnDestroy {
                         const first = arr[0];
                         const val = first?.value ?? first?.text ?? JSON.stringify(first);
                         this.scannedText = val;
-                        try { this.scanner?.stop(); } catch (err) {}
+                        try { this.scanner?.stop(); } catch (err) { }
                         this.cdr.detectChanges();
                         // Process token automatically
                         this.processToken(val);
@@ -67,34 +67,51 @@ export class QrScannerModalComponent implements AfterViewInit, OnDestroy {
     }
 
     private processToken(token: string): void {
-        if (!token) return;
         this.loading = true;
-        this.redeemedStamps = [];
         this.errorMsg = null;
+        this.redeemedStamps = [];
 
         this.stampQrService.redeemQrCode(token).subscribe({
             next: (res: any) => {
-                // Expect an array of ConsumerStamp objects
-                this.redeemedStamps = Array.isArray(res) ? res : (res?.results || []);
                 this.loading = false;
+
+                // Se sucesso
+                this.redeemedStamps = Array.isArray(res) ? res : (res.results || []);
+                this.errorMsg = null;
+
                 this.cdr.detectChanges();
             },
-            error: (err: any) => {
+            error: (err) => {
                 this.loading = false;
-                this.errorMsg = err?.error || 'Erro ao resgatar o QR Code.';
-                try { this.notification.create('error', 'Erro', String(this.errorMsg)); } catch (e) {}
+
+                this.errorMsg =
+                    err.status === 400
+                        ? 'Esse selo já foi adicionado'
+                        : 'Ocorreu um erro ao ler o QR Code';
+
                 this.cdr.detectChanges();
             }
         });
     }
 
+    addAnother() {
+        this.scannedText = null;
+        this.errorMsg = null;
+        this.redeemedStamps = [];
+
+        setTimeout(() => {
+            try { this.scanner?.start(); } catch { }
+            this.cdr.detectChanges();
+        }, 200);
+    }
+
     close(): void {
-        try { this.scanner?.stop(); } catch (e) {}
+        try { this.scanner?.stop(); } catch (e) { }
         this.modalRef.close();
     }
 
     ngOnDestroy(): void {
-        try { this.scanner?.stop(); } catch (e) {}
+        try { this.scanner?.stop(); } catch (e) { }
         this.dataSub?.unsubscribe();
     }
 }

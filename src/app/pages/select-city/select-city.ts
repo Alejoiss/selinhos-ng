@@ -5,6 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { filter, take } from 'rxjs';
 
 import { City } from '../../models/city/city';
 import { CityService } from '../../services/city/city.service';
@@ -29,7 +30,7 @@ export class SelectCity implements OnInit {
         private consumerService: ConsumerService,
         private notification: NzNotificationService,
         private router: Router
-    ) {}
+    ) { }
 
     ngOnInit(): void {
         this.fetchCities();
@@ -41,6 +42,11 @@ export class SelectCity implements OnInit {
             next: (cities) => {
                 this.cities = cities || [];
                 this.loadingCities = false;
+
+                if (this.cities.length === 1) {
+                    this.selectedCityId = this.cities[0].id;
+                    this.save();
+                }
             },
             error: (err) => {
                 this.loadingCities = false;
@@ -53,6 +59,10 @@ export class SelectCity implements OnInit {
         });
     }
 
+    compareCities = (o1: any, o2: any): boolean => {
+        return o1 == o2; // usa == pra comparar valor, não tipo
+    };
+
     save(): void {
         if (!this.selectedCityId) return;
         this.saving = true;
@@ -60,6 +70,13 @@ export class SelectCity implements OnInit {
             next: () => {
                 this.saving = false;
                 this.router.navigate(['/home']);
+                this.consumerService.getLoggedUser().pipe(filter(consumer => !!consumer), take(1)).subscribe(
+                    (consumer) => {
+                        if (!consumer) return;
+                        consumer.selected_city = this.cities.find(c => c.id === this.selectedCityId) || new City();
+                        this.consumerService.setLoggedUser(consumer);
+                    }
+                );
             },
             error: (err) => {
                 this.saving = false;

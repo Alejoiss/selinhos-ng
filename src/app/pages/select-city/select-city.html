@@ -2,17 +2,19 @@
     <div class="w-full max-w-md p-6 bg-white rounded-xl shadow flex items-center flex-col">
         <h2 class="text-2xl font-semibold mb-4 text-color-primary">Selecione sua cidade</h2>
 
-        <nz-select class="w-full rounded-md" [nzPlaceHolder]="loadingCities ? 'Carregando cidades...' : 'Selecione uma cidade'"
-            [(ngModel)]="selectedCityId" [nzDisabled]="loadingCities" nzShowSearch nzAllowClear nzOptionFilterProp="label">
-            @for(city of cities; track city.id) {
-                <nz-option [nzValue]="city.id" [nzLabel]="city.name + ' - ' + city.state.uf">
-                </nz-option>
+        <nz-select class="w-full rounded-md" nzAllowClear nzOptionFilterProp="label"
+            [(ngModel)]="selectedCityId" [ngModelOptions]="{ standalone: true }"
+            [compareWith]="compareCities">
+            @for (city of cities; track city.id) {
+                <nz-option [nzValue]="city.id" [nzLabel]="city.name + ' - ' + (city.state?.uf || '')" >{{ city.name }} - {{ city.state?.uf || '' }}</nz-option>
             }
         </nz-select>
 
         <div class="mt-6 w-full">
             <button nz-button nzType="primary" [nzLoading]="saving" (click)="save()" [disabled]="!selectedCityId"
-                class="w-full bg-brand text-white font-medium !rounded-xl py-3 text-center block !text-white py-3">
+                class="w-full font-medium !border border-border-01 flex items-center justify-center gap-2" [ngClass]="!selectedCityId ?
+                            'bg-bg-light text-color-secondary cursor-not-allowed opacity-60' :
+                            'bg-brand-variant text-color-primary cursor-pointer'">
                 Selecionar cidade
             </button>
         </div>

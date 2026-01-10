@@ -1,7 +1,15 @@
-<div class="flex items-center justify-center min-h-screen font-sans">
+<div class="h-full bg-brand ">
+    <a [routerLink]="['/']" class="flex flex-row items-center justify-center py-4 gap-4 mb-10">
+        <img src="assets/images/logo.svg" alt="Logo Selo Clube" class="h-12" />
+        <span class="text-white text-center text-4xl">Selo Clube</span>
+    </a>
+</div>
+
+<div class="flex items-center justify-center font-sans">
 
     <div class="w-full max-w-lg px-8">
 
+        <h1 class="text-center text-lg font-semibold mb-8">Cadastro de consumidores</h1>
         <h1 class="text-center text-lg font-semibold mb-8">Dados de acesso</h1>
 
         <form class="space-y-4" [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -28,7 +36,7 @@
             </div>
 
             <!-- Nome e Sobrenome -->
-            <div class="flex space-x-4">
+            <div class="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0">
                 <div class="flex-1">
                     <label for="nome" class="block text-sm font-semibold mb-1">Nome</label>
                     <input type="text" id="nome" name="nome" placeholder="José" formControlName="first_name"
@@ -106,7 +114,7 @@
             </div>
 
             <!-- Celular e Data de nascimento -->
-             <div class="flex space-x-4">
+            <div class="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0">
                 <div class="flex-1">
                     <label for="celular" class="block text-sm font-semibold mb-1">Celular</label>
                     <input type="tel" id="celular" name="celular" placeholder="(00) 00000-0000" mask="(00) 00000-0000" formControlName="cellphone"
@@ -131,7 +139,7 @@
             </div>
 
             <!-- Botão -->
-            <div class="text-center pt-4 flex flex-col gap-4 items-center w-full">
+            <div class="text-center pt-4 flex flex-col gap-4 items-center w-full mb-4">
                 <label class="flex items-center gap-3 text-sm text-color-primary w-full">
                     <input type="checkbox" formControlName="accepted_terms" class="mt-1" />
                     <span>Aceito os termos e condições. <a href="#" (click)="openTerms($event)" class="text-color-primary !underline">Veja aqui os termos</a></span>
@@ -139,7 +147,7 @@
 
                 <button type="submit" [disabled]="form.invalid || addingUser || emailExists || cpfExists || handleExists"
                     [ngClass]="form.invalid || addingUser || emailExists || cpfExists || handleExists ?
-                        'bg-gray-400 cursor-not-allowed' : 'bg-brand-variant text-color-primary cursor-pointer'"
+                        'bg-gray-400 cursor-not-allowed' : 'bg-brand bg-brand-hover text-color-primary cursor-pointer !text-white'"
                     class="font-medium !rounded-xl !py-2 w-full">
                     @if (addingUser) {
                         <i class="ph ph-spinner animate-spin text-base align-middle"></i>

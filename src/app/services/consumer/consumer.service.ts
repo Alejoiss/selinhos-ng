@@ -37,6 +37,10 @@ export class ConsumerService extends BaseService<Consumer> {
         return this.consumerSubject.asObservable();
     }
 
+    setLoggedUser(consumer: Consumer | null) {
+        this.consumerSubject.next(consumer);
+    }
+
     /**
      * Upload a new avatar using form data with key 'avatar'
      */

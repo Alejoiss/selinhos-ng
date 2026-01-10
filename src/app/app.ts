@@ -2,6 +2,8 @@ import { animate, group, query, style, transition, trigger } from '@angular/anim
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
+import { SeoService } from './services/seo/seo.service';
+
 @Component({
     selector: 'app-root',
     imports: [RouterOutlet],
@@ -20,6 +22,8 @@ import { RouterOutlet } from '@angular/router';
     ]
 })
 export class App {
+    constructor(private seo: SeoService) { }
+
     getRouteAnimationState(outlet: RouterOutlet) {
         return outlet && outlet.isActivated ? outlet.activatedRoute?.snapshot?.url.map(u => u.toString()).join('/') : '';
     }
