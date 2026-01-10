@@ -1,9 +1,9 @@
 <!-- login.component.html -->
 <div class="min-h-screen flex">
     <!-- Seção da Imagem (Desktop) -->
-    <div class="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-purple-100 to-purple-200 items-center justify-center">
-        <div class="w-full h-full text-center">
-            <img src="https://wallpapers.com/images/hd/post-office-stamp-collection-u7sjz37bd6c07v55.jpg"
+    <div class="hidden lg:flex lg:w-1/2 items-center justify-center p-[96px]">
+        <div class="w-full h-full text-center rounded-[16px] overflow-hidden shadow-lg">
+            <img src="assets/images/login-image.jpg"
                 alt="Colaboração profissional" class="w-full h-full object-cover mb-6" />
             <!-- <h2 class="text-2xl font-bold text-purple-800 mb-4">Bem-vindo ao Selo +</h2>
             <p class="text-purple-600">Uma plataforma moderna para gestão empresarial e colaboração eficiente.</p> -->
@@ -14,8 +14,9 @@
     <div class="w-full lg:w-1/2 flex items-center justify-center p-4 lg:p-8">
         <div class="w-full max-w-md">
             <!-- Logo/Título -->
-            <div class="text-center mb-8">
-                <h1 class="text-3xl lg:text-4xl font-bold text-purple-800 mb-2">Selo +</h1>
+            <div class="text-center mb-8 flex flex-row items-center justify-center gap-4">
+                <img src="assets/images/logo.svg" alt="Selo Clube" class="w-16 h-16 mb-4" />
+                <span class="text-3xl lg:text-4xl mb-2">Selo Clube</span>
             </div>
 
             <ng-content></ng-content>

@@ -10,6 +10,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
+import { NZ_CONFIG } from 'ng-zorro-antd/core/config';
 import { provideNzI18n, pt_BR } from 'ng-zorro-antd/i18n';
 import { provideEnvironmentNgxMask } from 'ngx-mask';
 
@@ -29,6 +30,7 @@ export const appConfig: ApplicationConfig = {
         provideHttpClient(
             withInterceptors([authInterceptor])
         ),
+        { provide: NZ_CONFIG, useValue: { notification: { nzPlacement: 'bottomRight' } } },
         provideEnvironmentNgxMask()
     ]
 };

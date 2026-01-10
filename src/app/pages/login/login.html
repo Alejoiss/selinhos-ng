@@ -1,4 +1,5 @@
 <app-login-template>
+    <h1 class="text-center text-lg font-semibold mb-8">Dados de acesso do consumidor</h1>
 
     <form nz-form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6">
         <!-- Campo Usuário (CPF) -->
@@ -50,7 +51,7 @@
 
         <div class="flex justify-center">
             <button nz-button nzSize="large" [nzLoading]="logando" type="submit"
-                class="w-3/4 bg-brand-variant text-color-primary font-medium !rounded-xl !py-2">
+                class="w-3/4 bg-brand bg-brand-hover text-color-primary font-medium !rounded-xl !py-2 !text-white">
                 @if (!logando) {
                     Entrar
                 }
